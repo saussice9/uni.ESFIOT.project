@@ -66,11 +66,12 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 //------------------------------------------------------------------------------
 
 // Joystick sensitivity arbitrary quantum
-#define SENSITIVITY_EPSILON 30
+#define SENSITIVITY_EPSILON 150
 
 // Default position of X and Y when the joystick is untouched
 #define DEFAULT_POSITION 400
 #define MAX_POSITION 780
+#define MAX_10BITS 1023
 
 // Left motor
 #define EN_B 5
@@ -443,65 +444,67 @@ void demoThree() {
 
 // This procedure reads the joystick values and updates the LED mode and the motors settings (speed,direction) accordingly
 void readJoystick() {
-  
+
   readJoystickSwitch();
-  
-  // read the value from the sensor between 0 and 1023 (in theory):
-  int sensorValueX = analogRead(A0);  // variable to store the value coming from the sensor
-  int sensorValueY = analogRead(A1);  // variable to store the value coming from the sensor
-  
+
+  // read the value from the sensor between 0 and 1023:
+  int sensorValueY = analogRead(A0);  // variable to store the value coming from the sensor
+  int sensorValueX = analogRead(A1);  // variable to store the value coming from the sensor
+
   Serial.print("Axis values: ");
   Serial.print("X = ");
   Serial.print(sensorValueX);
   Serial.print(" ,Y = ");
   Serial.println(sensorValueY);
-  
-  // First set default stopped state
-  motorValueL = 0;
-  motorValueR = 0;
-  directionL = STOPPED;
-  directionR = STOPPED;
-  
-  // Only change motor states if joystick is significantly moved
-  if (abs(sensorValueX - DEFAULT_POSITION) > SENSITIVITY_EPSILON) {
-    Serial.print("NOT STOPPED : ");
-    if (sensorValueX > DEFAULT_POSITION){
-      Serial.println("FORWARD");
-      directionL = FORWARD;
-      directionR = FORWARD;
-      
-      // Map the values to proper motor speed range
-      motorValueL = map(sensorValueX, 0, DEFAULT_POSITION, 0, 255);
-      motorValueR = map(sensorValueX, 0, DEFAULT_POSITION, 0, 255);
-    } 
-    else{
-      Serial.println("BACKWARDS");
-      directionL = BACKWARDS;
-      directionR = BACKWARDS;
-      
-      // Map the values to proper motor speed range
-      motorValueL = map(sensorValueX, 0, DEFAULT_POSITION, 255, 0);
-      motorValueR = map(sensorValueX, 0, DEFAULT_POSITION, 255, 0);
+
+  if (sensorValueX > DEFAULT_POSITION + SENSITIVITY_EPSILON) {
+    directionR = FORWARD;
+    directionL = FORWARD;
+
+    if (sensorValueY < DEFAULT_POSITION) {
+      motorValueR = sensorValueX >> 2 + (MAX_10BITS - MAX_POSITION);  // value>>2 == value/4
+      motorValueL = (sensorValueX >> 2) - ((DEFAULT_POSITION - sensorValueY) >> 2) + (MAX_10BITS - MAX_POSITION);
+    } else {
+      motorValueR = (sensorValueX >> 2) - ((sensorValueY - DEFAULT_POSITION) >> 2) + (MAX_10BITS - MAX_POSITION);
+      motorValueL = sensorValueX >> 2 + (MAX_10BITS - MAX_POSITION);
     }
+
+  } else {
+    if (sensorValueX < DEFAULT_POSITION - SENSITIVITY_EPSILON) {
+      directionR = BACKWARDS;
+      directionL = BACKWARDS;
+
+      if (sensorValueY < DEFAULT_POSITION) {
+        motorValueR = (MAX_10BITS - sensorValueX) >> 2;  // value>>2 == value/4
+        motorValueL = ((MAX_10BITS - sensorValueX) >> 2) - ((DEFAULT_POSITION - sensorValueY) >> 2);
+      } else {
+        motorValueR = ((MAX_10BITS - sensorValueX) >> 2) - ((sensorValueY - DEFAULT_POSITION) >> 2);
+        motorValueL = (MAX_10BITS - sensorValueX) >> 2;
+      }
+    } else {
+      if (sensorValueY < DEFAULT_POSITION - SENSITIVITY_EPSILON) {
+        directionR = FORWARD;
+        directionL = BACKWARDS;
+        motorValueR = (MAX_10BITS - sensorValueY) >> 2;  // value>>2 == value/4
+        motorValueL = (MAX_10BITS - sensorValueY) >> 2;
+      } else {
+        if (sensorValueY > DEFAULT_POSITION + SENSITIVITY_EPSILON) {
+          directionR = BACKWARDS;
+          directionL = FORWARD;
+          motorValueR = sensorValueY >> 2 + (MAX_10BITS - MAX_POSITION);
+          motorValueL = sensorValueY >> 2 + (MAX_10BITS - MAX_POSITION);
+        } else {
+          directionR = STOPPED;
+          directionL = STOPPED;
+          motorValueR = 0;
+          motorValueL = 0;
+        }
+      }
+    }
+
+    controlMotor(motorValueL, motorValueR, directionL, directionR);
   }
-  else{
-    Serial.println("STOPPED case.");
-  }
-  
-  Serial.print("Motor values: L = ");
-  Serial.print(motorValueL);
-  Serial.print(", R = ");
-  Serial.println(motorValueR);
-  
-  Serial.print("Directions : L = ");
-  Serial.print(directionL);
-  Serial.print(", R = ");
-  Serial.println(directionR);
-  
-  // to modify since motorValueL, MotorValueR, directionL and directionR are global variables we don't need to pass them as parameters
-  controlMotor(motorValueL, motorValueR, directionL,  directionR);
-  
-}
+
 
 // This procedure handles the joystick switch and updates the LED mode accordingly
 void readJoystickSwitch() {
