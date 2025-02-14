@@ -97,7 +97,7 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 int shift = 0;
 int mode = 2;
 // uint counter_change_mode = 0;
-int n_same = 0; // test purpose only
+int n_same = 0;  // test purpose only
 
 Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Setting NeoPixels configuration
 
@@ -152,23 +152,23 @@ void blinkBuiltInLed();
 // This procedure runs once at the beginning
 void setup() {
   Serial.begin(9600);  // Serial communication initialization
-  
-  pinMode(LED_BUILTIN, OUTPUT); // Setting built-in LED (pin 13) as output
-  
+
+  pinMode(LED_BUILTIN, OUTPUT);  // Setting built-in LED (pin 13) as output
+
   pinMode(EN_A, OUTPUT);  // Setting enable right motor (pin 10) as output
   pinMode(EN_B, OUTPUT);  // Setting enable left  motor (pin 5) as output
   pinMode(IN_1, OUTPUT);  // Setting left motor (pin 9) as output
   pinMode(IN_2, OUTPUT);  // Setting left motor (pin 8) as output
   pinMode(IN_3, OUTPUT);  // Setting right motor (pin 7) as output
   pinMode(IN_4, OUTPUT);  // Setting right motor (pin 6) as output
-  
-  pinMode(SW, INPUT_PULLUP);      // Setting joystick switch as pull-up input
-  
+
+  pinMode(SW, INPUT_PULLUP);  // Setting joystick switch as pull-up input
+
   pinMode(PIN_NEOPIXEL, OUTPUT);  // Setting Neopixel pin (pin 4) as output
   digitalWrite(PIN_NEOPIXEL, LOW);
-  
+
   pixels.begin();  // NeoPixel initialization
-  
+
   updateLED_Display();
 }
 
@@ -182,8 +182,8 @@ void loop() {
   // demoTwo();
   // demoThree();
   // delay(1000);
-  
-  
+
+
   readJoystick();
   updateLED_Display();
 }
@@ -204,141 +204,133 @@ void updateLED_Display() {
   } else {
   counter_change_mode++;
   } */
-  
+
   pixels.clear();  // Switch off all the pixels
-  
-  switch (mode) {    // LED display mode
-    
+
+  switch (mode) {  // LED display mode
+
     case 0:
-    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
-    }
-    break;
-    
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+      }
+      break;
+
     case 1:
-    
-    if (shift >= n_color - 1){
-      shift = 0;
-    } 
-    else{
-      shift++;
-    }
-    
-    for (int i = 0; i < NUM_PIXELS; i++){ // For each pixel...   
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
-    }
-    break;
-    
+
+      if (shift >= n_color - 1) {
+        shift = 0;
+      } else {
+        shift++;
+      }
+
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+      }
+      break;
+
     case 2:
-    
-    Serial.println("LED mode 2");
-    for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
-    }
-    break;
-    
+
+      Serial.println("LED mode 2");
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+      }
+      break;
+
     case 3:
-    
-    if (shift >= n_color2 - 1){
-      shift = 0;
-    } 
-    else{
-      shift++;
-    }
-    
-    for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
-    }
-    break;
-    
+
+      if (shift >= n_color2 - 1) {
+        shift = 0;
+      } else {
+        shift++;
+      }
+
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+      }
+      break;
+
     case 4:
-    for (int i = 0; i < NUM_PIXELS; i++){ // For each pixel...  
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
-    }
-    break;
-    
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+      }
+      break;
+
     case 5:
-    if (shift >= n_color3 - 1){
-      shift = 0;
-    } 
-    else{
-      shift++;
-    }
-    
-    for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
-    }
-    break;
-    
+      if (shift >= n_color3 - 1) {
+        shift = 0;
+      } else {
+        shift++;
+      }
+
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+      }
+      break;
+
     case 6:
-    for (int i = 0; i < NUM_PIXELS; i++){   // For each pixel...
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-    }
-    break;
-    
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      }
+      break;
+
     case 7:
-    
-    if (shift >= n_color4 - 1){
-      shift = 0;
-    } 
-    else{
-      shift++;
-    }
-    
-    for (int i = 0; i < NUM_PIXELS; i++){   // For each pixel...
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-    }
-    break;
-    
+
+      if (shift >= n_color4 - 1) {
+        shift = 0;
+      } else {
+        shift++;
+      }
+
+      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      }
+      break;
+
     case 8:
-    if (n_same >= 4){
-      if (shift <= 0){
-        shift = n_color4 - 1;
-      } 
-      else{
-        shift--;
+      if (n_same >= 4) {
+        if (shift <= 0) {
+          shift = n_color4 - 1;
+        } else {
+          shift--;
+        }
+        n_same = 0;
+      } else {
+        n_same++;
+        for (int i = 0; i < n_same; i++) {  // the first pixels
+          pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
+        }
       }
-      n_same = 0;
-    } 
-    else{
-      n_same++;
-      for (int i = 0; i < n_same; i++){ // the first pixels  
-        pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
+
+      for (int i = 0; i < NUM_PIXELS - 1 / 4; i++) {  // For each pixel...
+
+        // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+        pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+        pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+        pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+        pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
       }
-    }
-    
-    for (int i = 0; i < NUM_PIXELS - 1 / 4; i++){ // For each pixel...  
-      
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-      pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      
-    }
-    break;
-    
-    default:   
-    Serial.println(F("WRONG MODE VALUE")); 
+      break;
+
+    default:
+      Serial.println(F("WRONG MODE VALUE"));
   }
-  
+
   pixels.show();
 }
 
 // This procedure updates the LED mode and prints the new mode
-void updateLED_Mode(){
-  if (mode >= 8){
+void updateLED_Mode() {
+  if (mode >= 8) {
     mode = 0;
-  } 
-  else{
+  } else {
     mode += 1;
   }
   // counter_change_mode = 0;
@@ -352,31 +344,31 @@ void updateLED_Mode(){
 
 // This example lets the motors run in both directions at a constant speed
 void demoOne() {
-  
+
   // Switch on motor A
   digitalWrite(IN_1, HIGH);
   digitalWrite(IN_2, LOW);
-  
+
   // Set motor A speed to 200 on the possible range [0;255]
   analogWrite(EN_A, 200);
-  
+
   // Switch on motor B
   digitalWrite(IN_3, HIGH);
   digitalWrite(IN_4, LOW);
-  
+
   // Set motor B speed to 200 on the possible range [0;255]
   analogWrite(EN_B, 200);
   delay(2000);
-  
+
   // Change motor A direction
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
-  
+
   // Change motor B direction
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
   delay(2000);
-  
+
   // Switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
@@ -386,30 +378,30 @@ void demoOne() {
 
 // This example lets the motors run in both directions at an increasing speed then a decreasing speed
 void demoTwo() {
-  
+
   // Note that the max speed is related to the motor itself and the its voltage supply
   // The PWM values sent using analogWrite() are fractions of the theorical max speed
-  
+
   // Switch on motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
-  
+
   // Speed up from zero to max speed
-  for (int i = 0; i < 256; i++){
+  for (int i = 0; i < 256; i++) {
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-  
+
   // Slow down from max speed to zero
-  for (int i = 255; i >= 0; i--){
+  for (int i = 255; i >= 0; i--) {
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-  
+
   // switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
@@ -420,24 +412,24 @@ void demoTwo() {
 
 // This example lets the motors run in both directions at a full speed for 2 seconds each
 void demoThree() {
-  
+
   analogWrite(EN_A, 255);
   analogWrite(EN_B, 255);
-  
+
   // Switch on motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
-  
+
   delay(2000);
-  
+
   // switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, LOW);
-  
+
   delay(2000);
 }
 
@@ -501,73 +493,73 @@ void readJoystick() {
         }
       }
     }
-
-    controlMotor(motorValueL, motorValueR, directionL, directionR);
   }
+  controlMotor(motorValueL, motorValueR, directionL, directionR);
+}
 
 
 // This procedure handles the joystick switch and updates the LED mode accordingly
 void readJoystickSwitch() {
   int SW_value = digitalRead(SW);
-  
+
   if (SW_value != lastButtonState) {
     lastDebounceTime = millis();
   }
-  
+
   if ((millis() - lastDebounceTime) > debounceDelay) {
     if (SW_value != buttonState) {
       buttonState = SW_value;
-      
+
       if (buttonState == LOW) {
         Serial.println("Switch pressed, LED mode updating... ");
         updateLED_Mode();
       }
     }
   }
-  
+
   lastButtonState = SW_value;
 }
 
 // This procedure updates the settings of both motors (speed,direction) based on the given parameters
-void controlMotor(uint8_t left_value, uint8_t right_value, motorDirection left_direction, motorDirection right_direction){
+void controlMotor(uint8_t left_value, uint8_t right_value, motorDirection left_direction, motorDirection right_direction) {
   // set PWM value for both motors
   analogWrite(EN_B, left_value);
   analogWrite(EN_A, right_value);
-  
+
   //change direction of the left motor
-  switch (left_direction){
-    
+  switch (left_direction) {
+
     case FORWARD:
-        digitalWrite(IN_3, LOW);
-        digitalWrite(IN_4, HIGH);
-        break;
-        
+      digitalWrite(IN_3, LOW);
+      digitalWrite(IN_4, HIGH);
+      break;
+
     case BACKWARDS:
-        digitalWrite(IN_3, HIGH);
-        digitalWrite(IN_4, LOW);
-        break;
-    
+      digitalWrite(IN_3, HIGH);
+      digitalWrite(IN_4, LOW);
+      break;
+
     case STOPPED:
-        digitalWrite(IN_3, LOW);
-        digitalWrite(IN_4, LOW);
+      digitalWrite(IN_3, LOW);
+      digitalWrite(IN_4, LOW);
   }
-  
+
   // change direction of the right motor
-  switch (right_direction){
-    
+  switch (right_direction) {
+
     case FORWARD:
-        digitalWrite(IN_1, LOW);
-        digitalWrite(IN_2, HIGH);
-        break;
-        
+      digitalWrite(IN_1, LOW);
+      digitalWrite(IN_2, HIGH);
+      break;
+
     case BACKWARDS:
-        digitalWrite(IN_1, HIGH);
-        digitalWrite(IN_2, LOW);
-        break;
-    
+      digitalWrite(IN_1, HIGH);
+      digitalWrite(IN_2, LOW);
+      break;
+
     case STOPPED:
-        digitalWrite(IN_1, LOW);
-        digitalWrite(IN_2, LOW);
+      digitalWrite(IN_1, LOW);
+      digitalWrite(IN_2, LOW);
   }
 }
 
