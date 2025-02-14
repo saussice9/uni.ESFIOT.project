@@ -1,7 +1,7 @@
 // Project made for an Arduino Uno
 // This project is a simple robot that can be controlled by a smartphone via Bluetooth (not effective yet)
 // The robot is equipped with a NeoPixel LED strip that can display different colors and patterns
-// The robot is also equipped with two DC motors that can be controlled by the Arduino
+// The robot is also equipped with two DC motors that can be controlled by the board
 
 //=============================================================================
 //                              INCLUDE LIBRARIES
@@ -12,7 +12,7 @@
 // LED STRIP
 //------------------------------------------------------------------------------
 
-#include <Adafruit_NeoPixel.h>  // Library to control the NeoPixel LED strip
+#include <Adafruit_NeoPixel.h>  // Library needed to control the NeoPixel LED strip
 #ifdef __AVR__
 #include <avr/power.h>  // Needed for Adafruit Trinket 16 MHz
 #endif
@@ -22,7 +22,7 @@
 // BLUETOOTH
 //------------------------------------------------------------------------------
 
-#include <SoftwareSerial.h>  // Library to use the HC05 Bluetooth module
+#include <SoftwareSerial.h>  // Library needed by the HC05 Bluetooth module
 
 
 //=============================================================================
@@ -62,7 +62,7 @@ uint colors3[n_color3][3] = { { 100, 0, 0 }, { 50, 50, 50 }, { 0, 0, 100 } };  /
 uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 100, 0 }, { 50, 40, 0 }, { 75, 15, 0 }, { 100, 0, 0 } };  // rainbow display
 
 //------------------------------------------------------------------------------
-// MOTORS
+// MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
 // Left motor
@@ -75,6 +75,7 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 #define IN_1 9
 #define EN_A 10
 
+// Joystick switch
 #define SW 3
 
 //=============================================================================
@@ -93,7 +94,7 @@ int n_same = 0; // test purpose only
 Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Setting NeoPixels configuration
 
 //------------------------------------------------------------------------------
-// MOTORS
+// MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
 uint8_t motorValueR = 0;
@@ -113,7 +114,7 @@ void updateLED_Display();
 void updateLED_Mode();
 
 //------------------------------------------------------------------------------
-// MOTORS
+// MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
 void demoOne();
@@ -126,7 +127,6 @@ void controlMotor(uint8_t left_value, uint8_t right_value, motorDirection left_d
 //=============================================================================
 
 // This procedure runs once at the beginning
-
 void setup() {
   Serial.begin(9600);  // Serial communication initialization
   
@@ -151,6 +151,7 @@ void setup() {
 //                             MAIN LOOP PROCEDURE
 //=============================================================================
 
+// This procedure runs in loop
 void loop() {
   // demoOne();
   // delay(1000);
@@ -175,6 +176,7 @@ void loop() {
 // LED STRIP
 //------------------------------------------------------------------------------
 
+// This procedure updates the LED display based on the current mode
 void updateLED_Display() {
 /* if (counter_change_mode > 50) {
     updateLED_Mode();
@@ -196,17 +198,14 @@ void updateLED_Display() {
 
     case 1:
     
-        if (shift >= n_color - 1) 
-        {
+        if (shift >= n_color - 1){
           shift = 0;
         } 
-        else 
-        {
+        else{
           shift++;
         }
         
-        for (int i = 0; i < NUM_PIXELS; i++) // For each pixel...
-        {   
+        for (int i = 0; i < NUM_PIXELS; i++){ // For each pixel...   
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
         }
@@ -215,8 +214,7 @@ void updateLED_Display() {
     case 2:
   
         Serial.println("LED mode 2");
-        for (int i = 0; i < NUM_PIXELS; i++)  // For each pixel...
-        {  
+        for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
         }
@@ -224,50 +222,42 @@ void updateLED_Display() {
     
     case 3:
     
-        if (shift >= n_color2 - 1) 
-        {
+        if (shift >= n_color2 - 1){
           shift = 0;
         } 
-        else 
-        {
+        else{
           shift++;
         }
         
-        for (int i = 0; i < NUM_PIXELS; i++)  // For each pixel...
-        {  
+        for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
         }
         break;
         
     case 4:
-        for (int i = 0; i < NUM_PIXELS; i++) // For each pixel... 
-        {  
+        for (int i = 0; i < NUM_PIXELS; i++){ // For each pixel...  
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
         }
         break;
         
     case 5:
-        if (shift >= n_color3 - 1) 
-        {
+        if (shift >= n_color3 - 1){
           shift = 0;
         } 
-        else 
-        {
+        else{
           shift++;
         }
         
-        for (int i = 0; i < NUM_PIXELS; i++)  // For each pixel...
-        {  
+        for (int i = 0; i < NUM_PIXELS; i++){  // For each pixel...  
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
         }
         break;
         
     case 6:
-        for (int i = 0; i < NUM_PIXELS; i++)   // For each pixel...
-        {
+        for (int i = 0; i < NUM_PIXELS; i++){   // For each pixel...
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
         }
@@ -275,46 +265,37 @@ void updateLED_Display() {
         
     case 7:
         
-        if (shift >= n_color4 - 1) 
-        {
+        if (shift >= n_color4 - 1){
           shift = 0;
         } 
-        else 
-        {
+        else{
           shift++;
         }
         
-        for (int i = 0; i < NUM_PIXELS; i++)   // For each pixel...
-        {
+        for (int i = 0; i < NUM_PIXELS; i++){   // For each pixel...
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
         }
         break;
         
     case 8:
-        if (n_same >= 4) 
-        {
-          if (shift <= 0) 
-          {
+        if (n_same >= 4){
+          if (shift <= 0){
             shift = n_color4 - 1;
           } 
-          else 
-          {
+          else{
             shift--;
           }
           n_same = 0;
         } 
-        else 
-        {
+        else{
           n_same++;
-          for (int i = 0; i < n_same; i++) // the first pixels
-          {  
+          for (int i = 0; i < n_same; i++){ // the first pixels  
             pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
           }
         }
         
-        for (int i = 0; i < NUM_PIXELS - 1 / 4; i++) // For each pixel...
-        {  
+        for (int i = 0; i < NUM_PIXELS - 1 / 4; i++){ // For each pixel...  
           
           // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
           pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
@@ -329,13 +310,15 @@ void updateLED_Display() {
         Serial.println(F("WRONG MODE VALUE")); 
   }
 
-    pixels.show();
+  pixels.show();
 }
 
+// This procedure updates the LED mode and prints the new mode
 void updateLED_Mode(){
-  if (mode >= 8) {
+  if (mode >= 8){
     mode = 0;
-  } else {
+  } 
+  else{
     mode += 1;
   }
   // counter_change_mode = 0;
@@ -344,65 +327,78 @@ void updateLED_Mode(){
 }
 
 //------------------------------------------------------------------------------
-// MOTORS
+// MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
+// This example lets the motors run in both directions at a constant speed
 void demoOne() {
-  // cette fonction fera tourner les moteurs dans les deux sens à une
-  //vitesse fixe
-  // allume le moteur A
+  
+  // Switch on motor A
   digitalWrite(IN_1, HIGH);
   digitalWrite(IN_2, LOW);
-  // définit la vitesse à 200 sur la plage possible 0 ~ 255
+
+  // Set motor A speed to 200 on the possible range [0;255]
   analogWrite(EN_A, 200);
-  // allume le moteur B
+
+
+  // Switch on motor B
   digitalWrite(IN_3, HIGH);
   digitalWrite(IN_4, LOW);
-  // définit la vitesse à 200 sur la plage possible 0 ~ 255
+
+  // Set motor B speed to 200 on the possible range [0;255]
   analogWrite(EN_B, 200);
   delay(2000);
-  // change maintEN_Ant les directions du moteur
+
+  // Change motor A direction
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
+
+  // Change motor B direction
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
   delay(2000);
-  // Désactive maintEN_Ant les moteurs
+
+  // Switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, LOW);
 }
 
+// This example lets the motors run in both directions at an increasing speed
 void demoTwo() {
-  // cette fonction fait tourner les moteurs dans la gamme des vitesses possibles
-  // noter que la vitesse maximale est déterminée par le moteur lui-même et la tension de fonctionnement
-  // les valeurs PWM envoyées par analogWrite () sont des fractions de la vitesse maximale possible
-  // votre matériel
-  // allume les moteurs
+
+  // Note that the max speed is related to the motor itself and the its voltage supply
+  // The PWM values sent using analogWrite() are fractions of the theorical max speed
+  
+  // Switch on motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
-  // accélérer de zéro à la vitesse maximale
-  for (int i = 0; i < 256; i++) {
+
+  // Speed up from zero to max speed
+  for (int i = 0; i < 256; i++){
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-  // décélération de la vitesse maximale à zéro
-  for (int i = 255; i >= 0; i--) {
+
+  // Slow down from max speed to zero
+  for (int i = 255; i >= 0; i--){
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-  // Désactive maintEN_Ant les moteurs
+
+  // switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, LOW);
 }
 
+// This procedure reads the joystick values and updates the LED mode and the motors settings (speed,direction) accordingly
 void readJoystick() {
 
   int val_SW = digitalRead(SW);
@@ -411,7 +407,7 @@ void readJoystick() {
   Serial.println(val_SW);
   if(!val_SW){
     Serial.println("Switch pressed, LED mode updating... ");
-    updateLEDMode();
+    updateLED_Mode();
   }
 
   // read the value from the sensor between 0 and 1023:
@@ -444,7 +440,7 @@ void readJoystick() {
     
   }*/
 
-  controlMotor(255, 255, directionL,  directionR); 
+  controlMotor(255, 255, directionL,  directionR);
 
   /*if (sensorValueY < 300) motorValueR = 0xFF;
   if (sensorValueX > 900) {
@@ -454,28 +450,28 @@ void readJoystick() {
 
 }
 
+// This procedure updates the settings of both motors (speed,direction) based on the given parameters
 void controlMotor(uint8_t left_value, uint8_t right_value, motorDirection left_direction, motorDirection right_direction){
-  //set PWM for motors
+  // set PWM value for both motors
   analogWrite(EN_A, right_value);
   analogWrite(EN_B, left_value);
   
-  //change direction of the right motor
+  // change direction of the right motor
   switch (right_direction){
     
     case FORWARD:
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, HIGH);
-    break;
+      break;
     
     case BACKWARDS:
       digitalWrite(IN_1, HIGH);
       digitalWrite(IN_2, LOW);
-    break;
+      break;
     
     default:
       digitalWrite(IN_1, LOW);
       digitalWrite(IN_2, LOW);
-    break;
   }
   
   //change direction of the left motor
@@ -484,16 +480,15 @@ void controlMotor(uint8_t left_value, uint8_t right_value, motorDirection left_d
     case FORWARD:
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, HIGH);
-    break;
+      break;
     
     case BACKWARDS:
       digitalWrite(IN_3, HIGH);
       digitalWrite(IN_4, LOW);
-    break;
+      break;
     
     default:
       digitalWrite(IN_3, LOW);
       digitalWrite(IN_4, LOW);
-    break;
   }
 }
