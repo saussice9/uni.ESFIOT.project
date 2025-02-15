@@ -12,7 +12,6 @@
 // DEBUG
 //------------------------------------------------------------------------------
 
-#include <string.h>
 #include <Bonezegei_Printf.h>
 
 //------------------------------------------------------------------------------
@@ -31,6 +30,11 @@
 
 #include <SoftwareSerial.h>  // Library needed by the HC05 Bluetooth module
 
+//------------------------------------------------------------------------------
+// MOTORS
+//------------------------------------------------------------------------------
+
+#include <math.h>
 
 //=============================================================================
 //                              TYPE DECLARATIONS
@@ -42,11 +46,11 @@ typedef unsigned int uint;
 // MOTORS
 //------------------------------------------------------------------------------
 
-typedef enum motorDirection {
+typedef enum driveMode_t {
   STOPPED,
   BACKWARDS,
   FORWARD
-} motorDirection;
+} driveMode_t;
 
 //=============================================================================
 //                                   MACROS
@@ -56,9 +60,9 @@ typedef enum motorDirection {
 // DEBUG
 //------------------------------------------------------------------------------
 
-#define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
+// #define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
 // #define DEBUG_JOYSTICK  // Uncomment to enable joystick debug messages
-// #define DEBUG_MOTORS    // Uncomment to enable motors debug messages
+#define DEBUG_MOTORS    // Uncomment to enable motors debug messages
 
 
 //------------------------------------------------------------------------------
@@ -81,12 +85,14 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 // MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
+#define FULL_SPEED 255
+
 // Joystick sensitivity arbitrary quantum
 #define SENSITIVITY_EPSILON 30
 
 // Default position of X and Y when the joystick is untouched
 #define DEFAULT_POSITION 400
-#define MAX_POSITION 780
+#define MAX_POSITION 800
 #define MIN_POSITION 0
 #define MAX_10BITS 1023
 
@@ -118,8 +124,7 @@ Bonezegei_Printf debug(&Serial);  // enable printf
 //------------------------------------------------------------------------------
 
 int shift = 0;
-int mode = 2;
-// uint counter_change_mode = 0;
+int LED_pattern = 2;
 int n_same = 0;  // test purpose only
 
 Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Setting NeoPixels configuration
@@ -129,11 +134,13 @@ Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Se
 //------------------------------------------------------------------------------
 
 // Motors
-uint8_t motorValueR = 0;
-uint8_t motorValueL = 0;
+uint8_t motorSpeedR = 0;
+uint8_t motorSpeedL = 0;
 
-motorDirection directionR = STOPPED;
-motorDirection directionL = STOPPED;
+driveMode_t driveModeR = STOPPED;
+driveMode_t driveModeL = STOPPED;
+
+const float MOTOR_SCALING_FACTOR = (float)DEFAULT_POSITION / FULL_SPEED;
 
 //Joystick
 
@@ -152,8 +159,7 @@ int buttonState;
 
 void updateLED_Display();
 void updateLED_Mode();
-char* getPatternName(int mode);
-
+char* getPatternName(int LED_pattern);
 
 //------------------------------------------------------------------------------
 // MOTORS AND JOYSTICK
@@ -164,10 +170,15 @@ void demoTwo();
 void demoThree();
 void readJoystick();
 void readJoystickSwitch();
+void resetMotorStates();
+void handleForwardBackward(int scaled_X);
+void handleTurning(int scaled_Y);
 uint8_t intToUint8_t(int integer_value);
 int joystickValueCorrection(int Joystick_value);
-void updateMotorsSettings(uint left_PWM, uint right_PWM, motorDirection left_direction, motorDirection right_direction);
-char* getDirectionName(int direction);
+void applyMotorsSpeed();
+void applyDriveModes();
+void applyMotorsSettings();
+char* getDirectionName(driveMode_t direction);
 
 //------------------------------------------------------------------------------
 // OTHERS
@@ -195,6 +206,15 @@ void setup() {
 
   pinMode(SW, INPUT_PULLUP);  // Setting joystick switch as pull-up input
 
+  analogWrite(EN_A, 0);
+  analogWrite(EN_B, 0);
+
+  // Switch off motors
+  digitalWrite(IN_1, LOW);
+  digitalWrite(IN_2, LOW);
+  digitalWrite(IN_3, LOW);
+  digitalWrite(IN_4, LOW);
+
   pinMode(PIN_NEOPIXEL, OUTPUT);  // Setting Neopixel pin (pin 4) as output
   digitalWrite(PIN_NEOPIXEL, LOW);
 
@@ -211,11 +231,12 @@ void setup() {
 void loop() {
   // demoOne();
   // demoTwo();
-  // demoThree();
-  // delay(1000);
+  //demoThree();
 
   readJoystick();
   updateLED_Display();
+  
+  delay(1000); // to make serial output more readable and chill the motors
 }
 
 //=============================================================================
@@ -226,18 +247,12 @@ void loop() {
 // LED STRIP
 //------------------------------------------------------------------------------
 
-// This procedure updates the LED display based on the current mode
+// This procedure updates the LED display based on the current LED_pattern
 void updateLED_Display() {
-  /* if (counter_change_mode > 50) {
-  updateLED_Mode();
-  counter_change_mode = 0;
-  } else {
-  counter_change_mode++;
-  } */
 
   pixels.clear();  // Switch off all the pixels
 
-  switch (mode) {  // LED display mode
+  switch (LED_pattern) {  // LED display pattern
 
       // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
 
@@ -341,32 +356,34 @@ void updateLED_Display() {
       }
       break;
 
-    default:
-      debug.printf("WRONG MODE VALUE\n");
+    default:;
+#ifdef DEBUG_STRIP_LED
+      debug.printf("WRONG MODE VALUE ! \n");
+#endif
   }
 
 #ifdef DEBUG_STRIP_LED
-  debug.printf("Current LED display: %s (mode %d)\n", getPatternName(mode), mode);
+  debug.printf("Current LED display: %s (pattern %d)\n", getPatternName(LED_pattern), LED_pattern);
 #endif
 
   pixels.show();
 }
 
-// This procedure updates the LED mode and prints the new mode
+// This procedure updates the LED LED_pattern and prints the new LED_pattern
 void updateLED_Mode() {
-  if (mode >= 8) {
-    mode = 0;
+  if (LED_pattern >= 8) {
+    LED_pattern = 0;
   } else {
-    mode += 1;
+    LED_pattern += 1;
   }
 // counter_change_mode = 0;
 #ifdef DEBUG_STRIP_LED
-  debug.printf("NEw LED mode: %s (n° %d )\n", getPatternName(mode), mode);
+  debug.printf("NEw LED LED_pattern: %s (n° %d )\n", getPatternName(LED_pattern), LED_pattern);
 #endif
 }
 
-char* getPatternName(int mode) {
-  switch (mode) {
+char* getPatternName(int LED_pattern) {
+  switch (LED_pattern) {
     case 0:
       return "Default static";
     case 1:
@@ -401,14 +418,14 @@ void demoOne() {
   digitalWrite(IN_1, HIGH);
   digitalWrite(IN_2, LOW);
 
-  // Set motor A speed to 200 on the possible range [0;255]
+  // Set motor A speed to 200 on the possible range [0;FULL_SPEED]
   analogWrite(EN_A, 200);
 
   // Switch on motor B
   digitalWrite(IN_3, HIGH);
   digitalWrite(IN_4, LOW);
 
-  // Set motor B speed to 200 on the possible range [0;255]
+  // Set motor B speed to 200 on the possible range [0;FULL_SPEED]
   analogWrite(EN_B, 200);
   delay(2000);
 
@@ -448,7 +465,7 @@ void demoTwo() {
   }
 
   // Slow down from max speed to zero
-  for (int i = 255; i >= 0; i--) {
+  for (int i = FULL_SPEED; i >= 0; i--) {
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
@@ -465,8 +482,8 @@ void demoTwo() {
 // This example lets the motors run in both directions at a full speed for 2 seconds each
 void demoThree() {
 
-  analogWrite(EN_A, 255);
-  analogWrite(EN_B, 255);
+  analogWrite(EN_A, FULL_SPEED);
+  analogWrite(EN_B, FULL_SPEED);
 
   // Switch on motors
   digitalWrite(IN_1, LOW);
@@ -486,69 +503,39 @@ void demoThree() {
 }
 
 
-// This procedure reads the joystick values and updates the LED mode and the motors settings (speed,direction) accordingly
+// This procedure reads the joystick values and updates the LED LED_pattern and the motors settings (speed,direction) accordingly
 void readJoystick() {
-
   readJoystickSwitch();
 
-  // read the value from the sensor between 0 and 1023:
-  int sensorValueX = analogRead(A0);  // variable to store the value coming from the sensor
-  int sensorValueY = analogRead(A1);  // variable to store the value coming from the sensor
+  // Read joystick values
+  int scaled_X = analogRead(A0) - DEFAULT_POSITION;  // scaled_X ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
+  int scaled_Y = analogRead(A1) - DEFAULT_POSITION;  // scaled_Y ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
 
-#ifdef DEBUG_JOYSTICK
-  debug.printf("Axis values: X = %d , Y = %d \n", sensorValueX, sensorValueY);
+#ifdef DEBUG_MOTORS
+  debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
 #endif
 
-  if (sensorValueX > DEFAULT_POSITION + SENSITIVITY_EPSILON) {
-    directionR = FORWARD;
-    directionL = FORWARD;
 
-    if (sensorValueY < DEFAULT_POSITION) {
-      motorValueR = joystickValueCorrection(sensorValueX);  
-      motorValueL = joystickValueCorrection(sensorValueX) - joystickValueCorrection(sensorValueY);
-    } else {
-      motorValueR = joystickValueCorrection(sensorValueX) - joystickValueCorrection(sensorValueY);
-      motorValueL = joystickValueCorrection(sensorValueX);
-    }
+  // Reset motor states
+  resetMotorStates();
 
-  } else {
-    if (sensorValueX < DEFAULT_POSITION - SENSITIVITY_EPSILON) {
-      directionR = BACKWARDS;
-      directionL = BACKWARDS;
+  // Return if the joystick is centered
 
-      if (sensorValueY < DEFAULT_POSITION) {
-        motorValueR = joystickValueCorrection(sensorValueX);
-        motorValueL = joystickValueCorrection(sensorValueX) - joystickValueCorrection(sensorValueY);
-      } else {
-        motorValueR = joystickValueCorrection(sensorValueX) - joystickValueCorrection(sensorValueY);
-        motorValueL = joystickValueCorrection(sensorValueX);
-      }
-    } else {
-      if (sensorValueY < DEFAULT_POSITION - SENSITIVITY_EPSILON) {
-        directionR = FORWARD;
-        directionL = BACKWARDS;
-        motorValueR = joystickValueCorrection(sensorValueY);
-        motorValueL = joystickValueCorrection(sensorValueY);
-      } else {
-        if (sensorValueY > DEFAULT_POSITION + SENSITIVITY_EPSILON) {
-          directionR = BACKWARDS;
-          directionL = FORWARD;
-          motorValueR = joystickValueCorrection(sensorValueY);
-          motorValueL = joystickValueCorrection(sensorValueY);
-        } else {
-          directionR = STOPPED;
-          directionL = STOPPED;
-          motorValueR = 0;
-          motorValueL = 0;
-        }
-      }
-    }
+  bool isJoystickCentered = abs(scaled_X) < SENSITIVITY_EPSILON && abs(scaled_Y) < SENSITIVITY_EPSILON;
+
+  // Compute motors settings only if the joystick is not centered
+  if (!isJoystickCentered) {
+    handleForwardBackward(scaled_X);
+
+    handleTurning(scaled_Y);
+
+    handleSpeed(scaled_X, scaled_Y);
   }
-  updateMotorsSettings(motorValueL, motorValueR, directionL, directionR);
+
+  applyMotorsSettings();
 }
 
-
-// This procedure handles the joystick switch and updates the LED mode accordingly
+// This procedure handles the joystick switch and updates the LED pattern accordingly
 void readJoystickSwitch() {
   int SW_value = digitalRead(SW);
 
@@ -561,8 +548,8 @@ void readJoystickSwitch() {
       buttonState = SW_value;
 
       if (buttonState == LOW) {
-#ifdef DEBUG_JOYSTICK
-        debug.printf("Switch pressed, LED mode updating... \n");
+#ifdef DEBUG_JOYSTICK || DEBUG_STRIP_LED
+        debug.printf("Switch pressed, LED pattern updating... \n");
 #endif
         updateLED_Mode();
       }
@@ -572,6 +559,57 @@ void readJoystickSwitch() {
   lastButtonState = SW_value;
 }
 
+// This procedure set both the motors to STOPPED state and with a speed of 0
+void resetMotorStates() {
+  driveModeR = STOPPED;
+  driveModeL = STOPPED;
+  motorSpeedR = 0;
+  motorSpeedL = 0;
+}
+
+// This procedure computes the motor modes according to the X joystick value
+void handleForwardBackward(int scaled_X) {
+  if (scaled_X < -SENSITIVITY_EPSILON) {
+    driveModeL = BACKWARDS;
+    driveModeR = BACKWARDS;
+  } else if (scaled_X > SENSITIVITY_EPSILON) {
+    driveModeL = FORWARD;
+    driveModeR = FORWARD;
+  } else {
+#ifdef DEBUG_MOTORS
+    debug.printf("X CENTERED\n");
+#endif
+  }
+}
+
+// This procedure computes the motor modes according to the Y joystick value
+void handleTurning(int scaled_Y) {
+  if (scaled_Y < -SENSITIVITY_EPSILON) {
+    // Turn left
+    driveModeL = BACKWARDS;
+    driveModeR = FORWARD;
+  } else if (scaled_Y > SENSITIVITY_EPSILON) {
+    // Turn right
+    driveModeL = FORWARD;
+    driveModeR = BACKWARDS;
+  } else {
+#ifdef DEBUG_MOTORS
+    debug.printf("Y CENTERED\n");
+#endif
+  }
+}
+
+// This procedure updates the motor speed according to the scaled joystick values
+void handleSpeed(int scaled_X, int scaled_Y) {
+
+  int raw_speed = max(abs(scaled_X), abs(scaled_Y));    // between 0 and DEFAULT_POSITION
+  int scaled_speed = raw_speed / MOTOR_SCALING_FACTOR;  // between 0 and FULL_SPEED
+
+  motorSpeedR = scaled_speed;
+  motorSpeedL = scaled_speed;
+}
+
+// This procedure converts an integer value to an uint8_t value
 uint8_t intToUint8_t(int integer_value) {
   if (integer_value > 255) {
     return 255;
@@ -584,27 +622,32 @@ uint8_t intToUint8_t(int integer_value) {
   }
 }
 
-int joystickValueCorrection(int Joystick_value) {
-  if (Joystick_value > DEFAULT_POSITION) {
-    return ((Joystick_value - DEFAULT_POSITION) * MAX_10BITS / (MAX_POSITION - DEFAULT_POSITION)) >> 2; // value>>2 == value/4
+// This procedure corrects the joystick value to fit the motor speed range
+int joystickValueCorrection(int joystickValue) {
+  if (joystickValue > DEFAULT_POSITION) {
+    return ((joystickValue - DEFAULT_POSITION) * MAX_POSITION / (MAX_POSITION - DEFAULT_POSITION)) >> 2;  // value>>2 == value/4
   } else {
-    return (MAX_10BITS - (Joystick_value - MIN_POSITION) * MAX_10BITS / (DEFAULT_POSITION - MIN_POSITION)) >> 2;
+    return (MAX_POSITION - (joystickValue - MIN_POSITION) * MAX_POSITION / (DEFAULT_POSITION - MIN_POSITION)) >> 2;
   }
 }
 
-// This procedure updates the settings of both motors (speed,direction) based on the given parameters
-void updateMotorsSettings(int left_PWM, int right_PWM, motorDirection left_direction, motorDirection right_direction) {
+// This procedure updates the motors speed based on the related global variables
+void applyMotorsSpeed() {
 
   // set PWM value for both motors
-  analogWrite(EN_A, intToUint8_t(right_PWM));
-  analogWrite(EN_B, intToUint8_t(left_PWM));
+  analogWrite(EN_A, motorSpeedR);
+  analogWrite(EN_B, motorSpeedL);
 
 #ifdef DEBUG_MOTORS
-  debug.printf("Updated motors speed (L,R): ( %d , %d )\n", left_PWM, right_PWM);
+  debug.printf("Updated motors speed (L,R): ( %d , %d )\n", motorSpeedL, motorSpeedR);
 #endif
+}
 
-  //change direction of the left motor
-  switch (left_direction) {
+// This procedure updates the drive modes for both motors based on the related global variables
+void applyDriveModes() {
+
+  // modify drive mode for the left motor
+  switch (driveModeL) {
 
     case FORWARD:
       digitalWrite(IN_3, LOW);
@@ -621,8 +664,8 @@ void updateMotorsSettings(int left_PWM, int right_PWM, motorDirection left_direc
       digitalWrite(IN_4, LOW);
   }
 
-  // change direction of the right motor
-  switch (right_direction) {
+  // modify drive mode for the right motor
+  switch (driveModeR) {
 
     case FORWARD:
       digitalWrite(IN_1, LOW);
@@ -640,18 +683,25 @@ void updateMotorsSettings(int left_PWM, int right_PWM, motorDirection left_direc
   }
 
 #ifdef DEBUG_MOTORS
-  debug.printf("Updated motors direction (L,R): ( %d , %d )\n", left_direction, right_direction);
+  debug.printf("Updated motors modes (L,R): ( %s , %s )\n", getDirectionName(driveModeL), getDirectionName(driveModeR));
 #endif
 }
 
-char* getDirectionName(int direction) {
+// This procedure updates the settings of both motors (speed,mode) based on the global variables
+void applyMotorsSettings() {
+
+  applyDriveModes();
+  applyMotorsSpeed();
+}
+
+char* getDirectionName(driveMode_t direction) {
   switch (direction) {
     case 0:
       return "STOPPED";
     case 1:
-      return "FORWARD";
-    case 2:
       return "BACKWARDS";
+    case 2:
+      return "FORWARD";
     default:
       return "WRONG MODE VALUE";
   }
@@ -662,6 +712,7 @@ char* getDirectionName(int direction) {
 // OTHERS
 //------------------------------------------------------------------------------
 
+// This procedure blinks the built-in LED
 void blinkBuiltInLed() {
   digitalWrite(LED_BUILTIN, HIGH);
   delay(1000);
