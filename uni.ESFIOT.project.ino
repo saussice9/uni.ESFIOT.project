@@ -1,4 +1,3 @@
-
 // Project made for an Arduino Uno
 // This project is a simple robot that can be controlled by a smartphone via Bluetooth (not effective yet)
 // The robot is equipped with a NeoPixel LED strip that can display different colors and patterns
@@ -31,10 +30,10 @@
 #include <SoftwareSerial.h>  // Library needed by the HC05 Bluetooth module
 
 //------------------------------------------------------------------------------
-// MOTORS
+// BUZZER
 //------------------------------------------------------------------------------
 
-#include <math.h>
+#include "buzzer.h"
 
 //=============================================================================
 //                              TYPE DECLARATIONS
@@ -60,9 +59,9 @@ typedef enum driveMode_t {
 // DEBUG
 //------------------------------------------------------------------------------
 
-// #define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
+#define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
 // #define DEBUG_JOYSTICK  // Uncomment to enable joystick debug messages
-#define DEBUG_MOTORS    // Uncomment to enable motors debug messages
+// #define DEBUG_MOTORS    // Uncomment to enable motors debug messages
 
 
 //------------------------------------------------------------------------------
@@ -85,14 +84,14 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 // MOTORS AND JOYSTICK
 //------------------------------------------------------------------------------
 
-#define FULL_SPEED 255
+#define FULL_SPEED 100
 
 // Joystick sensitivity arbitrary quantum
 #define SENSITIVITY_EPSILON 30
 
 // Default position of X and Y when the joystick is untouched
-#define DEFAULT_POSITION 400
-#define MAX_POSITION 800
+#define DEFAULT_POSITION 520
+#define MAX_POSITION 1023
 #define MIN_POSITION 0
 #define MAX_10BITS 1023
 
@@ -109,6 +108,12 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 // Joystick switch
 #define SW 3
 
+//------------------------------------------------------------------------------
+// BUZZER
+//------------------------------------------------------------------------------
+
+#define BUZZER_PIN  2
+
 //=============================================================================
 //                             GLOBAL VARIABLES
 //=============================================================================
@@ -124,7 +129,7 @@ Bonezegei_Printf debug(&Serial);  // enable printf
 //------------------------------------------------------------------------------
 
 int shift = 0;
-int LED_pattern = 2;
+int mode = 0;
 int n_same = 0;  // test purpose only
 
 Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Setting NeoPixels configuration
@@ -149,6 +154,12 @@ unsigned long debounceDelay = 50;
 int lastButtonState = HIGH;
 int buttonState;
 
+//------------------------------------------------------------------------------
+// BUZZER
+//------------------------------------------------------------------------------
+
+int note = 0;
+
 //=============================================================================
 //                           ROUTINE PROTOTYPES
 //=============================================================================
@@ -159,7 +170,7 @@ int buttonState;
 
 void updateLED_Display();
 void updateLED_Mode();
-char* getPatternName(int LED_pattern);
+char* getPatternName(int mode);
 
 //------------------------------------------------------------------------------
 // MOTORS AND JOYSTICK
@@ -181,11 +192,16 @@ void applyMotorsSettings();
 char* getDirectionName(driveMode_t direction);
 
 //------------------------------------------------------------------------------
+// BUZZER
+//------------------------------------------------------------------------------
+
+void buzz();
+
+//------------------------------------------------------------------------------
 // OTHERS
 //------------------------------------------------------------------------------
 
 void blinkBuiltInLed();
-
 
 //=============================================================================
 //                             SETUP PROCEDURE
@@ -194,32 +210,34 @@ void blinkBuiltInLed();
 // This procedure runs once at the beginning
 void setup() {
   Serial.begin(9600);  // Serial communication initialization
-
+  
   pinMode(LED_BUILTIN, OUTPUT);  // Setting built-in LED (pin 13) as output
-
+  
+  pinMode(BUZZER_PIN, OUTPUT);  // Setting enable buzzer pin motor (pin 2) as output
+  
   pinMode(EN_A, OUTPUT);  // Setting enable right motor (pin 10) as output
   pinMode(EN_B, OUTPUT);  // Setting enable left  motor (pin 5) as output
   pinMode(IN_1, OUTPUT);  // Setting left motor (pin 9) as output
   pinMode(IN_2, OUTPUT);  // Setting left motor (pin 8) as output
   pinMode(IN_3, OUTPUT);  // Setting right motor (pin 7) as output
   pinMode(IN_4, OUTPUT);  // Setting right motor (pin 6) as output
-
+  
   pinMode(SW, INPUT_PULLUP);  // Setting joystick switch as pull-up input
-
+  
   analogWrite(EN_A, 0);
   analogWrite(EN_B, 0);
-
+  
   // Switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, LOW);
-
+  
   pinMode(PIN_NEOPIXEL, OUTPUT);  // Setting Neopixel pin (pin 4) as output
   digitalWrite(PIN_NEOPIXEL, LOW);
-
+  
   pixels.begin();  // NeoPixel initialization
-
+  
   updateLED_Display();
 }
 
@@ -231,12 +249,13 @@ void setup() {
 void loop() {
   // demoOne();
   // demoTwo();
-  //demoThree();
-
+  // demoThree();
+  
   readJoystick();
   updateLED_Display();
+  buzz();
   
-  delay(1000); // to make serial output more readable and chill the motors
+  // delay(1000); // to make serial output more readable and chill the motors
 }
 
 //=============================================================================
@@ -247,163 +266,170 @@ void loop() {
 // LED STRIP
 //------------------------------------------------------------------------------
 
-// This procedure updates the LED display based on the current LED_pattern
+// This procedure updates the LED display based on the current mode
 void updateLED_Display() {
-
+  
   pixels.clear();  // Switch off all the pixels
-
-  switch (LED_pattern) {  // LED display pattern
-
-      // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
-
+  
+  switch (mode) {  // LED display pattern
+    
+    // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+    
     case 0:
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
-      }
-      break;
-
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+    }
+    break;
+    
     case 1:
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+    }
 
-      if (shift >= n_color - 1) {
-        shift = 0;
-      } else {
-        shift++;
-      }
-
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
-      }
-      break;
-
+    break;
+    
+    
     case 2:
-
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
-      }
-      break;
-
-    case 3:
-
-      if (shift >= n_color2 - 1) {
-        shift = 0;
-      } else {
-        shift++;
-      }
-
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
-      }
-      break;
-
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+    }
+    break;
+    
+    case 3: 
+    
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+    }
+    break;
     case 4:
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
-      }
-      break;
 
+    if (shift >= n_color - 1) { // default dynamic
+      shift = 0;
+    } else {
+      shift++;
+    }
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+    }
+    break;
+    
     case 5:
-      if (shift >= n_color3 - 1) {
-        shift = 0;
-      } else {
-        shift++;
-      }
 
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
-      }
-      break;
+    if (shift >= n_color2 - 1) { // Italy dynamic
+      shift = 0;
+    } else {
+      shift++;
+    }
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+    }
+
+    break;
 
     case 6:
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      }
-      break;
 
-    case 7:
-
-      if (shift >= n_color4 - 1) {
-        shift = 0;
-      } else {
-        shift++;
-      }
-
-      for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-        pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      }
-      break;
-
+    if (shift >= n_color3 - 1) { // France dynamic
+      shift = 0;
+    } else {
+      shift++;
+    }
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+    }
+    break;
+    
+    case 7: 
+    
+    if (shift >= n_color4 - 1) { // rainbow dynamic
+      shift = 0;
+    } else {
+      shift++;
+    }
+    
+    for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
+      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+    }
+    break;
+    
     case 8:
-      if (n_same >= 4) {
-        if (shift <= 0) {
-          shift = n_color4 - 1;
-        } else {
-          shift--;
-        }
-        n_same = 0;
+    if (n_same >= 4) {
+      if (shift <= 0) {
+        shift = n_color4 - 1;
       } else {
-        n_same++;
-        for (int i = 0; i < n_same; i++) {  // the first pixels
-          pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
-        }
+        shift--;
       }
-
-      for (int i = 0; i < NUM_PIXELS - 1 / 4; i++) {  // For each pixel...
-
-        pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-        pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-        pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-        pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      n_same = 0;
+    } else {
+      n_same++;
+      for (int i = 0; i < n_same; i++) {  // the first pixels
+        pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
       }
-      break;
-
-    default:;
-#ifdef DEBUG_STRIP_LED
-      debug.printf("WRONG MODE VALUE ! \n");
-#endif
+    }
+    
+    for (int i = 0; i < NUM_PIXELS - 1 / 4; i++) {  // For each pixel...
+      
+      pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+    }
+    break;
+    
+    #ifdef DEBUG_STRIP_LED
+    debug.printf("WRONG MODE VALUE ! \n");
+    #endif
   }
-
-#ifdef DEBUG_STRIP_LED
-  debug.printf("Current LED display: %s (pattern %d)\n", getPatternName(LED_pattern), LED_pattern);
-#endif
-
+  
+  #ifdef DEBUG_STRIP_LED
+  debug.printf("Current LED display: %s (pattern %d)\n", getPatternName(mode), mode);
+  #endif
+  
   pixels.show();
 }
 
-// This procedure updates the LED LED_pattern and prints the new LED_pattern
+// This procedure updates the LED mode and prints the new mode
 void updateLED_Mode() {
-  if (LED_pattern >= 8) {
-    LED_pattern = 0;
+  if (mode > 8) {
+    mode = 0;
   } else {
-    LED_pattern += 1;
+    mode += 1;
   }
-// counter_change_mode = 0;
-#ifdef DEBUG_STRIP_LED
-  debug.printf("NEw LED LED_pattern: %s (n° %d )\n", getPatternName(LED_pattern), LED_pattern);
-#endif
+  // counter_change_mode = 0;
+  #ifdef DEBUG_STRIP_LED
+  debug.printf("NEw LED mode: %s (n° %d )\n", getPatternName(mode), mode);
+  #endif
 }
 
-char* getPatternName(int LED_pattern) {
-  switch (LED_pattern) {
+char* getPatternName(int mode) {
+  switch (mode) {
     case 0:
-      return "Default static";
+    return "Default static";
     case 1:
-      return "Default dynamic";
+    return "Italy static";
     case 2:
-      return "Italy static";
+    return "France static";
     case 3:
-      return "Italy dynamic";
+    return "Rainbow static";
     case 4:
-      return "France static";
+    return "Default dynamic";
     case 5:
-      return "France dynamic";
+    return "Italy dynamic";
     case 6:
-      return "Rainbow static";
+    return "France dynamic";
     case 7:
-      return "Rainbow dynamic";
+    return "Rainbow dynamic";
     case 8:
-      return "Rainbow dynamic and faded";
+    return "Rainbow dynamic and faded";
+    case 9:
+    return " LED strip off";
     default:
-      return "WRONG MODE VALUE";
+    return "WRONG MODE VALUE";
   }
 }
 
@@ -413,31 +439,31 @@ char* getPatternName(int LED_pattern) {
 
 // This example lets the motors run in both directions at a constant speed
 void demoOne() {
-
+  
   // Switch on motor A
   digitalWrite(IN_1, HIGH);
   digitalWrite(IN_2, LOW);
-
+  
   // Set motor A speed to 200 on the possible range [0;FULL_SPEED]
   analogWrite(EN_A, 200);
-
+  
   // Switch on motor B
   digitalWrite(IN_3, HIGH);
   digitalWrite(IN_4, LOW);
-
+  
   // Set motor B speed to 200 on the possible range [0;FULL_SPEED]
   analogWrite(EN_B, 200);
   delay(2000);
-
+  
   // Change motor A direction
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
-
+  
   // Change motor B direction
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
   delay(2000);
-
+  
   // Switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
@@ -447,30 +473,30 @@ void demoOne() {
 
 // This example lets the motors run in both directions at an increasing speed then a decreasing speed
 void demoTwo() {
-
+  
   // Note that the max speed is related to the motor itself and the its voltage supply
   // The PWM values sent using analogWrite() are fractions of the theorical max speed
-
+  
   // Switch on motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
-
+  
   // Speed up from zero to max speed
   for (int i = 0; i < 256; i++) {
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-
+  
   // Slow down from max speed to zero
   for (int i = FULL_SPEED; i >= 0; i--) {
     analogWrite(EN_A, i);
     analogWrite(EN_B, i);
     delay(20);
   }
-
+  
   // switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
@@ -481,81 +507,88 @@ void demoTwo() {
 
 // This example lets the motors run in both directions at a full speed for 2 seconds each
 void demoThree() {
-
+  
   analogWrite(EN_A, FULL_SPEED);
   analogWrite(EN_B, FULL_SPEED);
-
+  
   // Switch on motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, HIGH);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, HIGH);
-
+  
   delay(2000);
-
+  
   // switch off motors
   digitalWrite(IN_1, LOW);
   digitalWrite(IN_2, LOW);
   digitalWrite(IN_3, LOW);
   digitalWrite(IN_4, LOW);
-
+  
   delay(2000);
 }
 
 
-// This procedure reads the joystick values and updates the LED LED_pattern and the motors settings (speed,direction) accordingly
+// This procedure reads the joystick values and updates the LED mode and the motors settings (speed,direction) accordingly
 void readJoystick() {
   readJoystickSwitch();
-
+  
+  int X = analogRead(A0);  
+  int Y = analogRead(A1);
+  #ifdef DEBUG_MOTORS
+  debug.printf("(X, Y) = (%d,%d)\n", X, Y);
+  #endif
+  
   // Read joystick values
   int scaled_X = analogRead(A0) - DEFAULT_POSITION;  // scaled_X ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
   int scaled_Y = analogRead(A1) - DEFAULT_POSITION;  // scaled_Y ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
-
-#ifdef DEBUG_MOTORS
-  debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
-#endif
-
-
+  
+  #ifdef DEBUG_MOTORS
+  //debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
+  #endif
+  
+  
   // Reset motor states
   resetMotorStates();
-
+  
   // Return if the joystick is centered
-
+  
   bool isJoystickCentered = abs(scaled_X) < SENSITIVITY_EPSILON && abs(scaled_Y) < SENSITIVITY_EPSILON;
-
+  
   // Compute motors settings only if the joystick is not centered
   if (!isJoystickCentered) {
     handleForwardBackward(scaled_X);
-
+    
     handleTurning(scaled_Y);
-
+    
     handleSpeed(scaled_X, scaled_Y);
   }
-
+  
   applyMotorsSettings();
 }
 
 // This procedure handles the joystick switch and updates the LED pattern accordingly
 void readJoystickSwitch() {
   int SW_value = digitalRead(SW);
-
+  
   if (SW_value != lastButtonState) {
     lastDebounceTime = millis();
   }
-
+  
   if ((millis() - lastDebounceTime) > debounceDelay) {
     if (SW_value != buttonState) {
       buttonState = SW_value;
-
+      
       if (buttonState == LOW) {
-#ifdef DEBUG_JOYSTICK || DEBUG_STRIP_LED
+        #ifdef DEBUG_JOYSTICK || DEBUG_STRIP_LED
         debug.printf("Switch pressed, LED pattern updating... \n");
-#endif
+        #endif
         updateLED_Mode();
+        note = 0;
       }
     }
   }
-
+  
   lastButtonState = SW_value;
 }
 
@@ -576,9 +609,9 @@ void handleForwardBackward(int scaled_X) {
     driveModeL = FORWARD;
     driveModeR = FORWARD;
   } else {
-#ifdef DEBUG_MOTORS
+    #ifdef DEBUG_MOTORS
     debug.printf("X CENTERED\n");
-#endif
+    #endif
   }
 }
 
@@ -593,18 +626,18 @@ void handleTurning(int scaled_Y) {
     driveModeL = FORWARD;
     driveModeR = BACKWARDS;
   } else {
-#ifdef DEBUG_MOTORS
+    #ifdef DEBUG_MOTORS
     debug.printf("Y CENTERED\n");
-#endif
+    #endif
   }
 }
 
 // This procedure updates the motor speed according to the scaled joystick values
 void handleSpeed(int scaled_X, int scaled_Y) {
-
+  
   int raw_speed = max(abs(scaled_X), abs(scaled_Y));    // between 0 and DEFAULT_POSITION
   int scaled_speed = raw_speed / MOTOR_SCALING_FACTOR;  // between 0 and FULL_SPEED
-
+  
   motorSpeedR = scaled_speed;
   motorSpeedL = scaled_speed;
 }
@@ -633,63 +666,63 @@ int joystickValueCorrection(int joystickValue) {
 
 // This procedure updates the motors speed based on the related global variables
 void applyMotorsSpeed() {
-
+  
   // set PWM value for both motors
   analogWrite(EN_A, motorSpeedR);
   analogWrite(EN_B, motorSpeedL);
-
-#ifdef DEBUG_MOTORS
+  
+  #ifdef DEBUG_MOTORS
   debug.printf("Updated motors speed (L,R): ( %d , %d )\n", motorSpeedL, motorSpeedR);
-#endif
+  #endif
 }
 
 // This procedure updates the drive modes for both motors based on the related global variables
 void applyDriveModes() {
-
+  
   // modify drive mode for the left motor
   switch (driveModeL) {
-
+    
     case FORWARD:
-      digitalWrite(IN_3, LOW);
-      digitalWrite(IN_4, HIGH);
-      break;
-
+    digitalWrite(IN_3, LOW);
+    digitalWrite(IN_4, HIGH);
+    break;
+    
     case BACKWARDS:
-      digitalWrite(IN_3, HIGH);
-      digitalWrite(IN_4, LOW);
-      break;
-
+    digitalWrite(IN_3, HIGH);
+    digitalWrite(IN_4, LOW);
+    break;
+    
     case STOPPED:
-      digitalWrite(IN_3, LOW);
-      digitalWrite(IN_4, LOW);
+    digitalWrite(IN_3, LOW);
+    digitalWrite(IN_4, LOW);
   }
-
+  
   // modify drive mode for the right motor
   switch (driveModeR) {
-
+    
     case FORWARD:
-      digitalWrite(IN_1, LOW);
-      digitalWrite(IN_2, HIGH);
-      break;
-
+    digitalWrite(IN_1, LOW);
+    digitalWrite(IN_2, HIGH);
+    break;
+    
     case BACKWARDS:
-      digitalWrite(IN_1, HIGH);
-      digitalWrite(IN_2, LOW);
-      break;
-
+    digitalWrite(IN_1, HIGH);
+    digitalWrite(IN_2, LOW);
+    break;
+    
     case STOPPED:
-      digitalWrite(IN_1, LOW);
-      digitalWrite(IN_2, LOW);
+    digitalWrite(IN_1, LOW);
+    digitalWrite(IN_2, LOW);
   }
-
-#ifdef DEBUG_MOTORS
+  
+  #ifdef DEBUG_MOTORS
   debug.printf("Updated motors modes (L,R): ( %s , %s )\n", getDirectionName(driveModeL), getDirectionName(driveModeR));
-#endif
+  #endif
 }
 
 // This procedure updates the settings of both motors (speed,mode) based on the global variables
 void applyMotorsSettings() {
-
+  
   applyDriveModes();
   applyMotorsSpeed();
 }
@@ -697,15 +730,56 @@ void applyMotorsSettings() {
 char* getDirectionName(driveMode_t direction) {
   switch (direction) {
     case 0:
-      return "STOPPED";
+    return "STOPPED";
     case 1:
-      return "BACKWARDS";
+    return "BACKWARDS";
     case 2:
-      return "FORWARD";
+    return "FORWARD";
     default:
-      return "WRONG MODE VALUE";
+    return "WRONG MODE VALUE";
   }
 }
+
+//------------------------------------------------------------------------------
+// BUZZER
+//------------------------------------------------------------------------------
+
+
+void buzz(){
+  
+  if ( mode>=0 && mode < 8 ){
+    
+    
+    int scaled_mode = mode%4; 
+    
+    if (note < size_tab[scaled_mode]) {
+
+
+      int* tab_duration = (int*)durations_tab[scaled_mode];
+      int* tab_melody = (int*)melody_tab[scaled_mode];
+      
+      //to calculate the note duration, take one second divided by the note type.
+      //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+      int duration = 1000 / tab_duration[note];
+      tone(BUZZER_PIN, tab_melody[note], duration);
+      
+      //to distinguish the notes, set a minimum time between them.
+      //the note's duration + 20% seems to work well:
+      int pauseBetweenNotes = duration * 1.20;
+      delay(pauseBetweenNotes);
+      
+      //stop the tone playing:
+      noTone(BUZZER_PIN);
+      note++;
+    }else{
+      noTone(BUZZER_PIN);
+      delay(100);
+    }
+  } else{
+    delay(100);
+  }
+}
+
 
 
 //------------------------------------------------------------------------------
