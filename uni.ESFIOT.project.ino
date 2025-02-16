@@ -59,9 +59,9 @@ typedef enum driveMode_t {
 // DEBUG
 //------------------------------------------------------------------------------
 
-#define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
-// #define DEBUG_JOYSTICK  // Uncomment to enable joystick debug messages
-// #define DEBUG_MOTORS    // Uncomment to enable motors debug messages
+// #define DEBUG_STRIP_LED  // Uncomment to enable strip LED debug messages
+ #define DEBUG_JOYSTICK  // Uncomment to enable joystick debug messages
+ #define DEBUG_MOTORS    // Uncomment to enable motors debug messages
 
 
 //------------------------------------------------------------------------------
@@ -87,7 +87,7 @@ uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 
 #define FULL_SPEED 100
 
 // Joystick sensitivity arbitrary quantum
-#define SENSITIVITY_EPSILON 30
+#define SENSITIVITY_EPSILON 50
 
 // Default position of X and Y when the joystick is untouched
 #define DEFAULT_POSITION 520
@@ -182,10 +182,7 @@ void demoThree();
 void readJoystick();
 void readJoystickSwitch();
 void resetMotorStates();
-void handleForwardBackward(int scaled_X);
-void handleTurning(int scaled_Y);
 uint8_t intToUint8_t(int integer_value);
-int joystickValueCorrection(int Joystick_value);
 void applyMotorsSpeed();
 void applyDriveModes();
 void applyMotorsSettings();
@@ -255,7 +252,7 @@ void loop() {
   updateLED_Display();
   buzz();
   
-  // delay(1000); // to make serial output more readable and chill the motors
+  //  delay(1000); // to make serial output more readable and chill the motors
 }
 
 //=============================================================================
@@ -282,30 +279,24 @@ void updateLED_Display() {
     break;
     
     case 1:
-    
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
       pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
     }
-
     break;
     
-    
     case 2:
-    
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
       pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
     }
     break;
     
     case 3: 
-    
-    
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
       pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
     }
     break;
-    case 4:
 
+    case 4:
     if (shift >= n_color - 1) { // default dynamic
       shift = 0;
     } else {
@@ -318,7 +309,6 @@ void updateLED_Display() {
     break;
     
     case 5:
-
     if (shift >= n_color2 - 1) { // Italy dynamic
       shift = 0;
     } else {
@@ -328,11 +318,9 @@ void updateLED_Display() {
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
       pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
     }
-
     break;
 
     case 6:
-
     if (shift >= n_color3 - 1) { // France dynamic
       shift = 0;
     } else {
@@ -345,7 +333,6 @@ void updateLED_Display() {
     break;
     
     case 7: 
-    
     if (shift >= n_color4 - 1) { // rainbow dynamic
       shift = 0;
     } else {
@@ -528,14 +515,13 @@ void demoThree() {
   delay(2000);
 }
 
-
 // This procedure reads the joystick values and updates the LED mode and the motors settings (speed,direction) accordingly
 void readJoystick() {
   readJoystickSwitch();
   
   int X = analogRead(A0);  
   int Y = analogRead(A1);
-  #ifdef DEBUG_MOTORS
+  #ifdef DEBUG_JOYSTICK
   debug.printf("(X, Y) = (%d,%d)\n", X, Y);
   #endif
   
@@ -544,27 +530,58 @@ void readJoystick() {
   int scaled_Y = analogRead(A1) - DEFAULT_POSITION;  // scaled_Y ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
   
   #ifdef DEBUG_MOTORS
-  //debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
+  debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
   #endif
-  
   
   // Reset motor states
   resetMotorStates();
-  
-  // Return if the joystick is centered
-  
-  bool isJoystickCentered = abs(scaled_X) < SENSITIVITY_EPSILON && abs(scaled_Y) < SENSITIVITY_EPSILON;
-  
-  // Compute motors settings only if the joystick is not centered
-  if (!isJoystickCentered) {
-    handleForwardBackward(scaled_X);
-    
-    handleTurning(scaled_Y);
-    
-    handleSpeed(scaled_X, scaled_Y);
+
+  if (scaled_X > SENSITIVITY_EPSILON) {
+    driveModeR = FORWARD;
+    driveModeL = FORWARD;
+
+    if (scaled_Y < 0) {
+      motorSpeedR = scaled_X / MOTOR_SCALING_FACTOR;  
+      motorSpeedL = intToUint8_t(scaled_X / MOTOR_SCALING_FACTOR + (scaled_Y / MOTOR_SCALING_FACTOR) / 2);
+    } else {
+      motorSpeedR = intToUint8_t(scaled_X / MOTOR_SCALING_FACTOR - (scaled_Y / MOTOR_SCALING_FACTOR) / 2);
+      motorSpeedL = scaled_X  / MOTOR_SCALING_FACTOR;
+    }
+
+  } else {
+    if (scaled_X < -SENSITIVITY_EPSILON) {
+      driveModeR = BACKWARDS;
+      driveModeL = BACKWARDS;
+
+      if (scaled_Y < 0) {
+        motorSpeedL = intToUint8_t(- scaled_X / MOTOR_SCALING_FACTOR + (scaled_Y / MOTOR_SCALING_FACTOR) / 2);
+      } else {
+        motorSpeedR = intToUint8_t(- scaled_X / MOTOR_SCALING_FACTOR - (scaled_Y / MOTOR_SCALING_FACTOR) / 2);
+        motorSpeedL = - scaled_X / MOTOR_SCALING_FACTOR;
+      }
+    } else {
+      if (scaled_Y < - SENSITIVITY_EPSILON) {
+        driveModeR = FORWARD;
+        driveModeL = BACKWARDS;
+        motorSpeedR = - scaled_Y / MOTOR_SCALING_FACTOR;
+        motorSpeedL = - scaled_Y / MOTOR_SCALING_FACTOR;
+      } else {
+        if (scaled_Y > SENSITIVITY_EPSILON) {
+          driveModeR = BACKWARDS;
+          driveModeL = FORWARD;
+          motorSpeedR = scaled_Y / MOTOR_SCALING_FACTOR;
+          motorSpeedL = scaled_Y / MOTOR_SCALING_FACTOR;
+        } else {
+          driveModeR = STOPPED;
+          driveModeL = STOPPED;
+          motorSpeedR = 0;
+          motorSpeedL = 0;
+        }
+      }
+    }
   }
-  
   applyMotorsSettings();
+
 }
 
 // This procedure handles the joystick switch and updates the LED pattern accordingly
@@ -587,8 +604,7 @@ void readJoystickSwitch() {
         note = 0;
       }
     }
-  }
-  
+  } 
   lastButtonState = SW_value;
 }
 
@@ -598,48 +614,6 @@ void resetMotorStates() {
   driveModeL = STOPPED;
   motorSpeedR = 0;
   motorSpeedL = 0;
-}
-
-// This procedure computes the motor modes according to the X joystick value
-void handleForwardBackward(int scaled_X) {
-  if (scaled_X < -SENSITIVITY_EPSILON) {
-    driveModeL = BACKWARDS;
-    driveModeR = BACKWARDS;
-  } else if (scaled_X > SENSITIVITY_EPSILON) {
-    driveModeL = FORWARD;
-    driveModeR = FORWARD;
-  } else {
-    #ifdef DEBUG_MOTORS
-    debug.printf("X CENTERED\n");
-    #endif
-  }
-}
-
-// This procedure computes the motor modes according to the Y joystick value
-void handleTurning(int scaled_Y) {
-  if (scaled_Y < -SENSITIVITY_EPSILON) {
-    // Turn left
-    driveModeL = BACKWARDS;
-    driveModeR = FORWARD;
-  } else if (scaled_Y > SENSITIVITY_EPSILON) {
-    // Turn right
-    driveModeL = FORWARD;
-    driveModeR = BACKWARDS;
-  } else {
-    #ifdef DEBUG_MOTORS
-    debug.printf("Y CENTERED\n");
-    #endif
-  }
-}
-
-// This procedure updates the motor speed according to the scaled joystick values
-void handleSpeed(int scaled_X, int scaled_Y) {
-  
-  int raw_speed = max(abs(scaled_X), abs(scaled_Y));    // between 0 and DEFAULT_POSITION
-  int scaled_speed = raw_speed / MOTOR_SCALING_FACTOR;  // between 0 and FULL_SPEED
-  
-  motorSpeedR = scaled_speed;
-  motorSpeedL = scaled_speed;
 }
 
 // This procedure converts an integer value to an uint8_t value
@@ -655,20 +629,11 @@ uint8_t intToUint8_t(int integer_value) {
   }
 }
 
-// This procedure corrects the joystick value to fit the motor speed range
-int joystickValueCorrection(int joystickValue) {
-  if (joystickValue > DEFAULT_POSITION) {
-    return ((joystickValue - DEFAULT_POSITION) * MAX_POSITION / (MAX_POSITION - DEFAULT_POSITION)) >> 2;  // value>>2 == value/4
-  } else {
-    return (MAX_POSITION - (joystickValue - MIN_POSITION) * MAX_POSITION / (DEFAULT_POSITION - MIN_POSITION)) >> 2;
-  }
-}
-
 // This procedure updates the motors speed based on the related global variables
 void applyMotorsSpeed() {
-  
+
   // set PWM value for both motors
-  analogWrite(EN_A, motorSpeedR);
+  analogWrite(EN_A, motorSpeedR );
   analogWrite(EN_B, motorSpeedL);
   
   #ifdef DEBUG_MOTORS
@@ -743,17 +708,13 @@ char* getDirectionName(driveMode_t direction) {
 //------------------------------------------------------------------------------
 // BUZZER
 //------------------------------------------------------------------------------
-
-
 void buzz(){
   
   if ( mode>=0 && mode < 8 ){
     
-    
     int scaled_mode = mode%4; 
     
     if (note < size_tab[scaled_mode]) {
-
 
       int* tab_duration = (int*)durations_tab[scaled_mode];
       int* tab_melody = (int*)melody_tab[scaled_mode];
@@ -779,8 +740,6 @@ void buzz(){
     delay(100);
   }
 }
-
-
 
 //------------------------------------------------------------------------------
 // OTHERS

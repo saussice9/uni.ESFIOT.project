@@ -130,7 +130,7 @@ const int durations_TheSimpsons[] = {
 };
 
 //------------------------------------------------------------------------------
-// CONSTANTS
+// MUSIC TABS
 //------------------------------------------------------------------------------
 
 int const size_tab[] = {sizeof(durations_PinkPanther) / sizeof(int), sizeof(durations_Nokia) / sizeof(int), sizeof(durations_SubwaySurfers) / sizeof(int), sizeof(durations_TheSimpsons) / sizeof(int)};
