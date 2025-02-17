@@ -1,0 +1,202 @@
+\doxysection{Inc/motor.h File Reference}
+\hypertarget{motor_8h}{}\label{motor_8h}\index{Inc/motor.h@{Inc/motor.h}}
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{motor_8h_a309b853d290b30f66e8eb75543c7095f}{FULL\+\_\+\+SPEED}}~100
+\item 
+\#define \mbox{\hyperlink{motor_8h_abb2e17c8cd05847e4e60c9fd0a2b2b25}{EN\+\_\+B}}~5
+\item 
+\#define \mbox{\hyperlink{motor_8h_a4493eeb6a444956c813b2e87ba54656b}{IN\+\_\+4}}~6
+\item 
+\#define \mbox{\hyperlink{motor_8h_a0702b131cca172dcc6f3e8d2834dd6ee}{IN\+\_\+3}}~7
+\item 
+\#define \mbox{\hyperlink{motor_8h_a66e4710ca0108a45faaa4a92852225ad}{IN\+\_\+2}}~8
+\item 
+\#define \mbox{\hyperlink{motor_8h_a9f96581595ba16bf7696cde741877e1a}{IN\+\_\+1}}~9
+\item 
+\#define \mbox{\hyperlink{motor_8h_aa8901f373c60e298cc66cb0b510f467d}{EN\+\_\+A}}~10
+\item 
+\#define \mbox{\hyperlink{motor_8h_a5af87a6bae2f3734279caeff9299e53b}{MOTOR\+\_\+\+SCALING\+\_\+\+FACTOR}}~((float)\mbox{\hyperlink{joystick_8h_a67987705d25cfdf0095bd06b044e9eb4}{DEFAULT\+\_\+\+POSITION}} / \mbox{\hyperlink{motor_8h_a309b853d290b30f66e8eb75543c7095f}{FULL\+\_\+\+SPEED}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8h_a0a81f2feee85387e9e9f5655e20a853c}{drive\+Mode\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \{ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}
+, \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aad5aa01ac1825d55dfc1978ee49c4c36}{BACKWARDS}}
+, \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aa26736999186daf8146f809e863712a1}{FORWARD}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{motor_8h_a96463a21cd10afd0eb94925a2683ca94}{reset\+Motor\+States}} ()
+\item 
+void \mbox{\hyperlink{motor_8h_aa442b2edad3cf26591898aaa37afb47d}{apply\+Motors\+Speed}} ()
+\item 
+void \mbox{\hyperlink{motor_8h_a492237d90b80858ea2027ef54b372cf6}{apply\+Drive\+Modes}} ()
+\item 
+void \mbox{\hyperlink{motor_8h_a79adf21f8adc3ed186ffbfbc594c7f34}{apply\+Motors\+Settings}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{motor_8h_a7f56f786a8540f0389e2e4118ccfc04a}{get\+Direction\+Name}} (\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} direction)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{motor_8h_afecdabc33206d87e32d54cf76ac78692}{motor\+SpeedR}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{motor_8h_afc640c61e28f4b8ade87376061c895fe}{motor\+SpeedL}}
+\item 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8h_a6c1c95c9101f823a23c5e71c1f3feebe}{drive\+ModeR}}
+\item 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8h_ac0a2d30363862342b8ebfc7cd494282c}{drive\+ModeL}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{motor_8h_aa8901f373c60e298cc66cb0b510f467d}\index{motor.h@{motor.h}!EN\_A@{EN\_A}}
+\index{EN\_A@{EN\_A}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{EN\_A}{EN\_A}}
+{\footnotesize\ttfamily \label{motor_8h_aa8901f373c60e298cc66cb0b510f467d} 
+\#define EN\+\_\+A~10}
+
+\Hypertarget{motor_8h_abb2e17c8cd05847e4e60c9fd0a2b2b25}\index{motor.h@{motor.h}!EN\_B@{EN\_B}}
+\index{EN\_B@{EN\_B}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{EN\_B}{EN\_B}}
+{\footnotesize\ttfamily \label{motor_8h_abb2e17c8cd05847e4e60c9fd0a2b2b25} 
+\#define EN\+\_\+B~5}
+
+\Hypertarget{motor_8h_a309b853d290b30f66e8eb75543c7095f}\index{motor.h@{motor.h}!FULL\_SPEED@{FULL\_SPEED}}
+\index{FULL\_SPEED@{FULL\_SPEED}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{FULL\_SPEED}{FULL\_SPEED}}
+{\footnotesize\ttfamily \label{motor_8h_a309b853d290b30f66e8eb75543c7095f} 
+\#define FULL\+\_\+\+SPEED~100}
+
+\Hypertarget{motor_8h_a9f96581595ba16bf7696cde741877e1a}\index{motor.h@{motor.h}!IN\_1@{IN\_1}}
+\index{IN\_1@{IN\_1}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{IN\_1}{IN\_1}}
+{\footnotesize\ttfamily \label{motor_8h_a9f96581595ba16bf7696cde741877e1a} 
+\#define IN\+\_\+1~9}
+
+\Hypertarget{motor_8h_a66e4710ca0108a45faaa4a92852225ad}\index{motor.h@{motor.h}!IN\_2@{IN\_2}}
+\index{IN\_2@{IN\_2}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{IN\_2}{IN\_2}}
+{\footnotesize\ttfamily \label{motor_8h_a66e4710ca0108a45faaa4a92852225ad} 
+\#define IN\+\_\+2~8}
+
+\Hypertarget{motor_8h_a0702b131cca172dcc6f3e8d2834dd6ee}\index{motor.h@{motor.h}!IN\_3@{IN\_3}}
+\index{IN\_3@{IN\_3}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{IN\_3}{IN\_3}}
+{\footnotesize\ttfamily \label{motor_8h_a0702b131cca172dcc6f3e8d2834dd6ee} 
+\#define IN\+\_\+3~7}
+
+\Hypertarget{motor_8h_a4493eeb6a444956c813b2e87ba54656b}\index{motor.h@{motor.h}!IN\_4@{IN\_4}}
+\index{IN\_4@{IN\_4}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{IN\_4}{IN\_4}}
+{\footnotesize\ttfamily \label{motor_8h_a4493eeb6a444956c813b2e87ba54656b} 
+\#define IN\+\_\+4~6}
+
+\Hypertarget{motor_8h_a5af87a6bae2f3734279caeff9299e53b}\index{motor.h@{motor.h}!MOTOR\_SCALING\_FACTOR@{MOTOR\_SCALING\_FACTOR}}
+\index{MOTOR\_SCALING\_FACTOR@{MOTOR\_SCALING\_FACTOR}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{MOTOR\_SCALING\_FACTOR}{MOTOR\_SCALING\_FACTOR}}
+{\footnotesize\ttfamily \label{motor_8h_a5af87a6bae2f3734279caeff9299e53b} 
+\#define MOTOR\+\_\+\+SCALING\+\_\+\+FACTOR~((float)\mbox{\hyperlink{joystick_8h_a67987705d25cfdf0095bd06b044e9eb4}{DEFAULT\+\_\+\+POSITION}} / \mbox{\hyperlink{motor_8h_a309b853d290b30f66e8eb75543c7095f}{FULL\+\_\+\+SPEED}})}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{motor_8h_a0a81f2feee85387e9e9f5655e20a853c}\index{motor.h@{motor.h}!driveMode\_t@{driveMode\_t}}
+\index{driveMode\_t@{driveMode\_t}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{driveMode\_t}{driveMode\_t}}
+{\footnotesize\ttfamily \label{motor_8h_a0a81f2feee85387e9e9f5655e20a853c} 
+typedef enum \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}}}
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}\index{motor.h@{motor.h}!driveMode\_t@{driveMode\_t}}
+\index{driveMode\_t@{driveMode\_t}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{driveMode\_t}{driveMode\_t}}
+{\footnotesize\ttfamily \label{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1} 
+enum \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STOPPED@{STOPPED}!motor.h@{motor.h}}\index{motor.h@{motor.h}!STOPPED@{STOPPED}}}\Hypertarget{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}\label{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c} 
+STOPPED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BACKWARDS@{BACKWARDS}!motor.h@{motor.h}}\index{motor.h@{motor.h}!BACKWARDS@{BACKWARDS}}}\Hypertarget{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aad5aa01ac1825d55dfc1978ee49c4c36}\label{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aad5aa01ac1825d55dfc1978ee49c4c36} 
+BACKWARDS&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FORWARD@{FORWARD}!motor.h@{motor.h}}\index{motor.h@{motor.h}!FORWARD@{FORWARD}}}\Hypertarget{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aa26736999186daf8146f809e863712a1}\label{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aa26736999186daf8146f809e863712a1} 
+FORWARD&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{motor_8h_a492237d90b80858ea2027ef54b372cf6}\index{motor.h@{motor.h}!applyDriveModes@{applyDriveModes}}
+\index{applyDriveModes@{applyDriveModes}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{applyDriveModes()}{applyDriveModes()}}
+{\footnotesize\ttfamily \label{motor_8h_a492237d90b80858ea2027ef54b372cf6} 
+void apply\+Drive\+Modes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8h_a79adf21f8adc3ed186ffbfbc594c7f34}\index{motor.h@{motor.h}!applyMotorsSettings@{applyMotorsSettings}}
+\index{applyMotorsSettings@{applyMotorsSettings}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{applyMotorsSettings()}{applyMotorsSettings()}}
+{\footnotesize\ttfamily \label{motor_8h_a79adf21f8adc3ed186ffbfbc594c7f34} 
+void apply\+Motors\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8h_aa442b2edad3cf26591898aaa37afb47d}\index{motor.h@{motor.h}!applyMotorsSpeed@{applyMotorsSpeed}}
+\index{applyMotorsSpeed@{applyMotorsSpeed}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{applyMotorsSpeed()}{applyMotorsSpeed()}}
+{\footnotesize\ttfamily \label{motor_8h_aa442b2edad3cf26591898aaa37afb47d} 
+void apply\+Motors\+Speed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8h_a7f56f786a8540f0389e2e4118ccfc04a}\index{motor.h@{motor.h}!getDirectionName@{getDirectionName}}
+\index{getDirectionName@{getDirectionName}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{getDirectionName()}{getDirectionName()}}
+{\footnotesize\ttfamily \label{motor_8h_a7f56f786a8540f0389e2e4118ccfc04a} 
+char \texorpdfstring{$\ast$}{*} get\+Direction\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}}}]{direction}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8h_a96463a21cd10afd0eb94925a2683ca94}\index{motor.h@{motor.h}!resetMotorStates@{resetMotorStates}}
+\index{resetMotorStates@{resetMotorStates}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{resetMotorStates()}{resetMotorStates()}}
+{\footnotesize\ttfamily \label{motor_8h_a96463a21cd10afd0eb94925a2683ca94} 
+void reset\+Motor\+States (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{motor_8h_ac0a2d30363862342b8ebfc7cd494282c}\index{motor.h@{motor.h}!driveModeL@{driveModeL}}
+\index{driveModeL@{driveModeL}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{driveModeL}{driveModeL}}
+{\footnotesize\ttfamily \label{motor_8h_ac0a2d30363862342b8ebfc7cd494282c} 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} drive\+ModeL\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{motor_8h_a6c1c95c9101f823a23c5e71c1f3feebe}\index{motor.h@{motor.h}!driveModeR@{driveModeR}}
+\index{driveModeR@{driveModeR}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{driveModeR}{driveModeR}}
+{\footnotesize\ttfamily \label{motor_8h_a6c1c95c9101f823a23c5e71c1f3feebe} 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} drive\+ModeR\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{motor_8h_afc640c61e28f4b8ade87376061c895fe}\index{motor.h@{motor.h}!motorSpeedL@{motorSpeedL}}
+\index{motorSpeedL@{motorSpeedL}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{motorSpeedL}{motorSpeedL}}
+{\footnotesize\ttfamily \label{motor_8h_afc640c61e28f4b8ade87376061c895fe} 
+uint8\+\_\+t motor\+SpeedL\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{motor_8h_afecdabc33206d87e32d54cf76ac78692}\index{motor.h@{motor.h}!motorSpeedR@{motorSpeedR}}
+\index{motorSpeedR@{motorSpeedR}!motor.h@{motor.h}}
+\doxysubsubsection{\texorpdfstring{motorSpeedR}{motorSpeedR}}
+{\footnotesize\ttfamily \label{motor_8h_afecdabc33206d87e32d54cf76ac78692} 
+uint8\+\_\+t motor\+SpeedR\hspace{0.3cm}{\ttfamily [extern]}}
+

@@ -1,0 +1,63 @@
+\doxysection{Src/joystick.cpp File Reference}
+\hypertarget{joystick_8cpp}{}\label{joystick_8cpp}\index{Src/joystick.cpp@{Src/joystick.cpp}}
+{\ttfamily \#include "{}../\+Inc/joystick.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{joystick_8cpp_a3ff3d9b621a0ffb09c1ecb02cb45c3c6}{read\+Joystick}} ()
+\item 
+void \mbox{\hyperlink{joystick_8cpp_a158b0c9b399258cd048d6d8eb1a6808d}{read\+Joystick\+Switch}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long \mbox{\hyperlink{joystick_8cpp_a025a85b33749fd5dde5cb7edd7aea941}{last\+Debounce\+Time}} = 0
+\item 
+unsigned long \mbox{\hyperlink{joystick_8cpp_a77d7d18f51343feebbe6d0eea7b4ac57}{debounce\+Delay}} = 50
+\item 
+int \mbox{\hyperlink{joystick_8cpp_a66f761d0471e843051f3c49af5a1cb82}{last\+Button\+State}} = HIGH
+\item 
+int \mbox{\hyperlink{joystick_8cpp_a5002611f83f5a861df12917dd5651db8}{button\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{joystick_8cpp_a3ff3d9b621a0ffb09c1ecb02cb45c3c6}\index{joystick.cpp@{joystick.cpp}!readJoystick@{readJoystick}}
+\index{readJoystick@{readJoystick}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{readJoystick()}{readJoystick()}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a3ff3d9b621a0ffb09c1ecb02cb45c3c6} 
+void read\+Joystick (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{joystick_8cpp_a158b0c9b399258cd048d6d8eb1a6808d}\index{joystick.cpp@{joystick.cpp}!readJoystickSwitch@{readJoystickSwitch}}
+\index{readJoystickSwitch@{readJoystickSwitch}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{readJoystickSwitch()}{readJoystickSwitch()}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a158b0c9b399258cd048d6d8eb1a6808d} 
+void read\+Joystick\+Switch (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{joystick_8cpp_a5002611f83f5a861df12917dd5651db8}\index{joystick.cpp@{joystick.cpp}!buttonState@{buttonState}}
+\index{buttonState@{buttonState}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{buttonState}{buttonState}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a5002611f83f5a861df12917dd5651db8} 
+int button\+State}
+
+\Hypertarget{joystick_8cpp_a77d7d18f51343feebbe6d0eea7b4ac57}\index{joystick.cpp@{joystick.cpp}!debounceDelay@{debounceDelay}}
+\index{debounceDelay@{debounceDelay}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{debounceDelay}{debounceDelay}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a77d7d18f51343feebbe6d0eea7b4ac57} 
+unsigned long debounce\+Delay = 50}
+
+\Hypertarget{joystick_8cpp_a66f761d0471e843051f3c49af5a1cb82}\index{joystick.cpp@{joystick.cpp}!lastButtonState@{lastButtonState}}
+\index{lastButtonState@{lastButtonState}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{lastButtonState}{lastButtonState}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a66f761d0471e843051f3c49af5a1cb82} 
+int last\+Button\+State = HIGH}
+
+\Hypertarget{joystick_8cpp_a025a85b33749fd5dde5cb7edd7aea941}\index{joystick.cpp@{joystick.cpp}!lastDebounceTime@{lastDebounceTime}}
+\index{lastDebounceTime@{lastDebounceTime}!joystick.cpp@{joystick.cpp}}
+\doxysubsubsection{\texorpdfstring{lastDebounceTime}{lastDebounceTime}}
+{\footnotesize\ttfamily \label{joystick_8cpp_a025a85b33749fd5dde5cb7edd7aea941} 
+unsigned long last\+Debounce\+Time = 0}
+

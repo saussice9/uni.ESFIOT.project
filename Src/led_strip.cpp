@@ -1,4 +1,10 @@
-// LED STRIP SOURCE FILE
+/**
+ * @file led_strip.cpp
+ * @brief Source file for the LED strip functionality.
+ * 
+ * This file contains the implementation of the LED strip control functions, including
+ * the definition of LED display patterns and the routine to update the LED display.
+ */
 
 //=============================================================================
 //                       INCLUDE LIBRARIES AND HEADER FILES
@@ -10,106 +16,133 @@
 //                             VARIABLE DEFINITIONS
 //=============================================================================
 
-uint colors[n_color][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 0, 50, 50 }, { 69, 6, 23 } };  // default display for the NeoPixels
-uint colors2[n_color2][3] = { { 100, 0, 0 }, { 0, 100, 0 }, { 50, 50, 50 } };  // Italy display
-uint colors3[n_color3][3] = { { 100, 0, 0 }, { 50, 50, 50 }, { 0, 0, 100 } };  // France display
-uint colors4[n_color4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 100, 0 }, { 50, 40, 0 }, { 75, 15, 0 }, { 100, 0, 0 } };  // rainbow display
+/**
+* @brief RGB color values for default pattern
+*/
+uint RGB_values1[n_LED1][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 0, 50, 50 }, { 69, 6, 23 } };  // default display for the NeoPixels
 
+/**
+* @brief RGB color values for Italy pattern
+*/
+uint RGB_values2[n_LED2][3] = { { 100, 0, 0 }, { 0, 100, 0 }, { 50, 50, 50 } };  // Italy display
+
+/**
+* @brief RGB color values for France pattern
+*/
+uint RGB_values3[n_LED3][3] = { { 100, 0, 0 }, { 50, 50, 50 }, { 0, 0, 100 } };  // France display
+
+/**
+* @brief RGB color values for rainbow pattern
+*/
+uint RGB_values4[n_LED4][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 100, 0 }, { 50, 40, 0 }, { 75, 15, 0 }, { 100, 0, 0 } };  // rainbow display
+
+/**
+* @brief Pattern control variable that controls the shift or offset of the LED display pattern.
+*/
 int shift = 0;
+
+/**
+* @brief Variable that tracks the number of LEDs that are the same color in the current display pattern.
+*/
 int n_same = 0;  // test purpose only
 
-Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);  // Setting NeoPixels configuration
+/**
+* @brief NeoPixel strip controller instance
+*/
+Adafruit_NeoPixel pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800); 
 
 
 //=============================================================================
 //                             ROUTINE DEFINITIONS
 //=============================================================================
 
-// This procedure updates the LED display based on the current mode
+/**
+* @brief Updates the LED strip display pattern.
+*/
 void updateLED_Display() {
   
   pixels.clear();  // Switch off all the pixels
   
-  switch (mode) {  // LED display pattern
+  switch (mode) {  
     
     // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
     
     case 0:
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values1[(shift + i) % n_LED1][0], RGB_values1[(shift + i) % n_LED1][1], RGB_values1[(shift + i) % n_LED1][2]));
     }
     break;
     
     case 1:
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values2[(shift + i) % n_LED2][0], RGB_values2[(shift + i) % n_LED2][1], RGB_values2[(shift + i) % n_LED2][2]));
     }
     break;
     
     case 2:
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values3[(shift + i) % n_LED3][0], RGB_values3[(shift + i) % n_LED3][1], RGB_values3[(shift + i) % n_LED3][2]));
     }
     break;
     
     case 3: 
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
     }
     break;
 
     case 4:
-    if (shift >= n_color - 1) { // default dynamic
+    if (shift >= n_LED1 - 1) { // default dynamic
       shift = 0;
     } else {
       shift++;
     }
     
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors[(shift + i) % n_color][0], colors[(shift + i) % n_color][1], colors[(shift + i) % n_color][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values1[(shift + i) % n_LED1][0], RGB_values1[(shift + i) % n_LED1][1], RGB_values1[(shift + i) % n_LED1][2]));
     }
     break;
     
     case 5:
-    if (shift >= n_color2 - 1) { // Italy dynamic
+    if (shift >= n_LED2 - 1) { // Italy dynamic
       shift = 0;
     } else {
       shift++;
     }
     
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors2[(shift + i) % n_color2][0], colors2[(shift + i) % n_color2][1], colors2[(shift + i) % n_color2][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values2[(shift + i) % n_LED2][0], RGB_values2[(shift + i) % n_LED2][1], RGB_values2[(shift + i) % n_LED2][2]));
     }
     break;
 
     case 6:
-    if (shift >= n_color3 - 1) { // France dynamic
+    if (shift >= n_LED3 - 1) { // France dynamic
       shift = 0;
     } else {
       shift++;
     }
     
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors3[(shift + i) % n_color3][0], colors3[(shift + i) % n_color3][1], colors3[(shift + i) % n_color3][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values3[(shift + i) % n_LED3][0], RGB_values3[(shift + i) % n_LED3][1], RGB_values3[(shift + i) % n_LED3][2]));
     }
     break;
     
     case 7: 
-    if (shift >= n_color4 - 1) { // rainbow dynamic
+    if (shift >= n_LED4 - 1) { // rainbow dynamic
       shift = 0;
     } else {
       shift++;
     }
     
     for (int i = 0; i < NUM_PIXELS; i++) {  // For each pixel...
-      pixels.setPixelColor(i, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor(i, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
     }
     break;
     
     case 8:
     if (n_same >= 4) {
       if (shift <= 0) {
-        shift = n_color4 - 1;
+        shift = n_LED4 - 1;
       } else {
         shift--;
       }
@@ -117,16 +150,16 @@ void updateLED_Display() {
     } else {
       n_same++;
       for (int i = 0; i < n_same; i++) {  // the first pixels
-        pixels.setPixelColor(i, pixels.Color(colors4[(shift - 1) % n_color4][0], colors4[(shift - 1) % n_color4][1], colors4[(shift - 1) % n_color4][2]));
+        pixels.setPixelColor(i, pixels.Color(RGB_values4[(shift - 1) % n_LED4][0], RGB_values4[(shift - 1) % n_LED4][1], RGB_values4[(shift - 1) % n_LED4][2]));
       }
     }
     
     for (int i = 0; i < NUM_PIXELS - 1 / 4; i++) {  // For each pixel...
       
-      pixels.setPixelColor(i * 4 + n_same, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
-      pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(colors4[(shift + i) % n_color4][0], colors4[(shift + i) % n_color4][1], colors4[(shift + i) % n_color4][2]));
+      pixels.setPixelColor(i * 4 + n_same, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
+      pixels.setPixelColor((i * 4 + 1 + n_same) % NUM_PIXELS, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
+      pixels.setPixelColor((i * 4 + 2 + n_same) % NUM_PIXELS, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
+      pixels.setPixelColor((i * 4 + 3 + n_same) % NUM_PIXELS, pixels.Color(RGB_values4[(shift + i) % n_LED4][0], RGB_values4[(shift + i) % n_LED4][1], RGB_values4[(shift + i) % n_LED4][2]));
     }
     break;
     
@@ -142,7 +175,9 @@ void updateLED_Display() {
   pixels.show();
 }
 
-// This procedure updates the LED mode and prints the new mode
+/**
+* @brief Changes the current LED display mode.
+*/
 void updateLED_Mode() {
   if (mode > 8) {
     mode = 0;
@@ -155,6 +190,11 @@ void updateLED_Mode() {
   #endif
 }
 
+/**
+* @brief Retrieves the name of the current pattern.
+* @param mode Current display mode number.
+* @return Name of the active pattern.
+*/
 char* getPatternName(int mode) {
   switch (mode) {
     case 0:

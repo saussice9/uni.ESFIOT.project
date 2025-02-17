@@ -1,0 +1,87 @@
+\doxysection{Src/motor.cpp File Reference}
+\hypertarget{motor_8cpp}{}\label{motor_8cpp}\index{Src/motor.cpp@{Src/motor.cpp}}
+{\ttfamily \#include "{}../\+Inc/motor.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{motor_8cpp_a96463a21cd10afd0eb94925a2683ca94}{reset\+Motor\+States}} ()
+\item 
+void \mbox{\hyperlink{motor_8cpp_aa442b2edad3cf26591898aaa37afb47d}{apply\+Motors\+Speed}} ()
+\item 
+void \mbox{\hyperlink{motor_8cpp_a492237d90b80858ea2027ef54b372cf6}{apply\+Drive\+Modes}} ()
+\item 
+void \mbox{\hyperlink{motor_8cpp_a79adf21f8adc3ed186ffbfbc594c7f34}{apply\+Motors\+Settings}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{motor_8cpp_a7f56f786a8540f0389e2e4118ccfc04a}{get\+Direction\+Name}} (\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} direction)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{motor_8cpp_afecdabc33206d87e32d54cf76ac78692}{motor\+SpeedR}} = 0
+\item 
+uint8\+\_\+t \mbox{\hyperlink{motor_8cpp_afc640c61e28f4b8ade87376061c895fe}{motor\+SpeedL}} = 0
+\item 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8cpp_a6c1c95c9101f823a23c5e71c1f3feebe}{drive\+ModeR}} = \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}
+\item 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} \mbox{\hyperlink{motor_8cpp_ac0a2d30363862342b8ebfc7cd494282c}{drive\+ModeL}} = \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{motor_8cpp_a492237d90b80858ea2027ef54b372cf6}\index{motor.cpp@{motor.cpp}!applyDriveModes@{applyDriveModes}}
+\index{applyDriveModes@{applyDriveModes}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{applyDriveModes()}{applyDriveModes()}}
+{\footnotesize\ttfamily \label{motor_8cpp_a492237d90b80858ea2027ef54b372cf6} 
+void apply\+Drive\+Modes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8cpp_a79adf21f8adc3ed186ffbfbc594c7f34}\index{motor.cpp@{motor.cpp}!applyMotorsSettings@{applyMotorsSettings}}
+\index{applyMotorsSettings@{applyMotorsSettings}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{applyMotorsSettings()}{applyMotorsSettings()}}
+{\footnotesize\ttfamily \label{motor_8cpp_a79adf21f8adc3ed186ffbfbc594c7f34} 
+void apply\+Motors\+Settings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8cpp_aa442b2edad3cf26591898aaa37afb47d}\index{motor.cpp@{motor.cpp}!applyMotorsSpeed@{applyMotorsSpeed}}
+\index{applyMotorsSpeed@{applyMotorsSpeed}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{applyMotorsSpeed()}{applyMotorsSpeed()}}
+{\footnotesize\ttfamily \label{motor_8cpp_aa442b2edad3cf26591898aaa37afb47d} 
+void apply\+Motors\+Speed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8cpp_a7f56f786a8540f0389e2e4118ccfc04a}\index{motor.cpp@{motor.cpp}!getDirectionName@{getDirectionName}}
+\index{getDirectionName@{getDirectionName}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{getDirectionName()}{getDirectionName()}}
+{\footnotesize\ttfamily \label{motor_8cpp_a7f56f786a8540f0389e2e4118ccfc04a} 
+char \texorpdfstring{$\ast$}{*} get\+Direction\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}}}]{direction}{}\end{DoxyParamCaption})}
+
+\Hypertarget{motor_8cpp_a96463a21cd10afd0eb94925a2683ca94}\index{motor.cpp@{motor.cpp}!resetMotorStates@{resetMotorStates}}
+\index{resetMotorStates@{resetMotorStates}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{resetMotorStates()}{resetMotorStates()}}
+{\footnotesize\ttfamily \label{motor_8cpp_a96463a21cd10afd0eb94925a2683ca94} 
+void reset\+Motor\+States (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{motor_8cpp_ac0a2d30363862342b8ebfc7cd494282c}\index{motor.cpp@{motor.cpp}!driveModeL@{driveModeL}}
+\index{driveModeL@{driveModeL}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{driveModeL}{driveModeL}}
+{\footnotesize\ttfamily \label{motor_8cpp_ac0a2d30363862342b8ebfc7cd494282c} 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} drive\+ModeL = \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}}
+
+\Hypertarget{motor_8cpp_a6c1c95c9101f823a23c5e71c1f3feebe}\index{motor.cpp@{motor.cpp}!driveModeR@{driveModeR}}
+\index{driveModeR@{driveModeR}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{driveModeR}{driveModeR}}
+{\footnotesize\ttfamily \label{motor_8cpp_a6c1c95c9101f823a23c5e71c1f3feebe} 
+\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{drive\+Mode\+\_\+t}} drive\+ModeR = \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}}}
+
+\Hypertarget{motor_8cpp_afc640c61e28f4b8ade87376061c895fe}\index{motor.cpp@{motor.cpp}!motorSpeedL@{motorSpeedL}}
+\index{motorSpeedL@{motorSpeedL}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{motorSpeedL}{motorSpeedL}}
+{\footnotesize\ttfamily \label{motor_8cpp_afc640c61e28f4b8ade87376061c895fe} 
+uint8\+\_\+t motor\+SpeedL = 0}
+
+\Hypertarget{motor_8cpp_afecdabc33206d87e32d54cf76ac78692}\index{motor.cpp@{motor.cpp}!motorSpeedR@{motorSpeedR}}
+\index{motorSpeedR@{motorSpeedR}!motor.cpp@{motor.cpp}}
+\doxysubsubsection{\texorpdfstring{motorSpeedR}{motorSpeedR}}
+{\footnotesize\ttfamily \label{motor_8cpp_afecdabc33206d87e32d54cf76ac78692} 
+uint8\+\_\+t motor\+SpeedR = 0}
+

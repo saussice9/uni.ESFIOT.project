@@ -1,0 +1,121 @@
+\doxysection{Inc/joystick.h File Reference}
+\hypertarget{joystick_8h}{}\label{joystick_8h}\index{Inc/joystick.h@{Inc/joystick.h}}
+{\ttfamily \#include $<$pitches.\+h$>$}\newline
+{\ttfamily \#include "{}motor.\+h"{}}\newline
+{\ttfamily \#include "{}LED\+\_\+strip.\+h"{}}\newline
+{\ttfamily \#include "{}buzzer.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{joystick_8h_a5ed2bbe8b23aad7d1e72d08b2df22021}{SENSITIVITY\+\_\+\+EPSILON}}~50
+\item 
+\#define \mbox{\hyperlink{joystick_8h_a67987705d25cfdf0095bd06b044e9eb4}{DEFAULT\+\_\+\+POSITION}}~520
+\item 
+\#define \mbox{\hyperlink{joystick_8h_a850290a622822618b3cfb2fb46f8d269}{MAX\+\_\+\+POSITION}}~1023
+\item 
+\#define \mbox{\hyperlink{joystick_8h_ae1933db0f5cd1f42ad9d70e345b5d5b6}{MIN\+\_\+\+POSITION}}~0
+\item 
+\#define \mbox{\hyperlink{joystick_8h_a48d33f5e4fd214e05ccd16d2386dd361}{MAX\+\_\+10\+BITS}}~1023
+\item 
+\#define \mbox{\hyperlink{joystick_8h_a4b95e941f44a20ea60512bbe2065f0b6}{SW}}~3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{joystick_8h_a3ff3d9b621a0ffb09c1ecb02cb45c3c6}{read\+Joystick}} ()
+\item 
+void \mbox{\hyperlink{joystick_8h_a158b0c9b399258cd048d6d8eb1a6808d}{read\+Joystick\+Switch}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned long \mbox{\hyperlink{joystick_8h_a025a85b33749fd5dde5cb7edd7aea941}{last\+Debounce\+Time}}
+\item 
+unsigned long \mbox{\hyperlink{joystick_8h_a77d7d18f51343feebbe6d0eea7b4ac57}{debounce\+Delay}}
+\item 
+int \mbox{\hyperlink{joystick_8h_a66f761d0471e843051f3c49af5a1cb82}{last\+Button\+State}}
+\item 
+int \mbox{\hyperlink{joystick_8h_a5002611f83f5a861df12917dd5651db8}{button\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{joystick_8h_a67987705d25cfdf0095bd06b044e9eb4}\index{joystick.h@{joystick.h}!DEFAULT\_POSITION@{DEFAULT\_POSITION}}
+\index{DEFAULT\_POSITION@{DEFAULT\_POSITION}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_POSITION}{DEFAULT\_POSITION}}
+{\footnotesize\ttfamily \label{joystick_8h_a67987705d25cfdf0095bd06b044e9eb4} 
+\#define DEFAULT\+\_\+\+POSITION~520}
+
+\Hypertarget{joystick_8h_a48d33f5e4fd214e05ccd16d2386dd361}\index{joystick.h@{joystick.h}!MAX\_10BITS@{MAX\_10BITS}}
+\index{MAX\_10BITS@{MAX\_10BITS}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_10BITS}{MAX\_10BITS}}
+{\footnotesize\ttfamily \label{joystick_8h_a48d33f5e4fd214e05ccd16d2386dd361} 
+\#define MAX\+\_\+10\+BITS~1023}
+
+\Hypertarget{joystick_8h_a850290a622822618b3cfb2fb46f8d269}\index{joystick.h@{joystick.h}!MAX\_POSITION@{MAX\_POSITION}}
+\index{MAX\_POSITION@{MAX\_POSITION}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_POSITION}{MAX\_POSITION}}
+{\footnotesize\ttfamily \label{joystick_8h_a850290a622822618b3cfb2fb46f8d269} 
+\#define MAX\+\_\+\+POSITION~1023}
+
+\Hypertarget{joystick_8h_ae1933db0f5cd1f42ad9d70e345b5d5b6}\index{joystick.h@{joystick.h}!MIN\_POSITION@{MIN\_POSITION}}
+\index{MIN\_POSITION@{MIN\_POSITION}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{MIN\_POSITION}{MIN\_POSITION}}
+{\footnotesize\ttfamily \label{joystick_8h_ae1933db0f5cd1f42ad9d70e345b5d5b6} 
+\#define MIN\+\_\+\+POSITION~0}
+
+\Hypertarget{joystick_8h_a5ed2bbe8b23aad7d1e72d08b2df22021}\index{joystick.h@{joystick.h}!SENSITIVITY\_EPSILON@{SENSITIVITY\_EPSILON}}
+\index{SENSITIVITY\_EPSILON@{SENSITIVITY\_EPSILON}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{SENSITIVITY\_EPSILON}{SENSITIVITY\_EPSILON}}
+{\footnotesize\ttfamily \label{joystick_8h_a5ed2bbe8b23aad7d1e72d08b2df22021} 
+\#define SENSITIVITY\+\_\+\+EPSILON~50}
+
+\Hypertarget{joystick_8h_a4b95e941f44a20ea60512bbe2065f0b6}\index{joystick.h@{joystick.h}!SW@{SW}}
+\index{SW@{SW}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{SW}{SW}}
+{\footnotesize\ttfamily \label{joystick_8h_a4b95e941f44a20ea60512bbe2065f0b6} 
+\#define SW~3}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{joystick_8h_a3ff3d9b621a0ffb09c1ecb02cb45c3c6}\index{joystick.h@{joystick.h}!readJoystick@{readJoystick}}
+\index{readJoystick@{readJoystick}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{readJoystick()}{readJoystick()}}
+{\footnotesize\ttfamily \label{joystick_8h_a3ff3d9b621a0ffb09c1ecb02cb45c3c6} 
+void read\+Joystick (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{joystick_8h_a158b0c9b399258cd048d6d8eb1a6808d}\index{joystick.h@{joystick.h}!readJoystickSwitch@{readJoystickSwitch}}
+\index{readJoystickSwitch@{readJoystickSwitch}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{readJoystickSwitch()}{readJoystickSwitch()}}
+{\footnotesize\ttfamily \label{joystick_8h_a158b0c9b399258cd048d6d8eb1a6808d} 
+void read\+Joystick\+Switch (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{joystick_8h_a5002611f83f5a861df12917dd5651db8}\index{joystick.h@{joystick.h}!buttonState@{buttonState}}
+\index{buttonState@{buttonState}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{buttonState}{buttonState}}
+{\footnotesize\ttfamily \label{joystick_8h_a5002611f83f5a861df12917dd5651db8} 
+int button\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{joystick_8h_a77d7d18f51343feebbe6d0eea7b4ac57}\index{joystick.h@{joystick.h}!debounceDelay@{debounceDelay}}
+\index{debounceDelay@{debounceDelay}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{debounceDelay}{debounceDelay}}
+{\footnotesize\ttfamily \label{joystick_8h_a77d7d18f51343feebbe6d0eea7b4ac57} 
+unsigned long debounce\+Delay\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{joystick_8h_a66f761d0471e843051f3c49af5a1cb82}\index{joystick.h@{joystick.h}!lastButtonState@{lastButtonState}}
+\index{lastButtonState@{lastButtonState}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{lastButtonState}{lastButtonState}}
+{\footnotesize\ttfamily \label{joystick_8h_a66f761d0471e843051f3c49af5a1cb82} 
+int last\+Button\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{joystick_8h_a025a85b33749fd5dde5cb7edd7aea941}\index{joystick.h@{joystick.h}!lastDebounceTime@{lastDebounceTime}}
+\index{lastDebounceTime@{lastDebounceTime}!joystick.h@{joystick.h}}
+\doxysubsubsection{\texorpdfstring{lastDebounceTime}{lastDebounceTime}}
+{\footnotesize\ttfamily \label{joystick_8h_a025a85b33749fd5dde5cb7edd7aea941} 
+unsigned long last\+Debounce\+Time\hspace{0.3cm}{\ttfamily [extern]}}
+

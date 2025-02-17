@@ -1,0 +1,53 @@
+\doxysection{joystick.\+h}
+\hypertarget{joystick_8h_source}{}\label{joystick_8h_source}\index{Inc/joystick.h@{Inc/joystick.h}}
+\mbox{\hyperlink{joystick_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ JOYSTICK\ HEADER\ FILE}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INCLUDE\ LIBRARIES\ AND\ HEADER\ FILES}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <pitches.h>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{motor_8h}{motor.h}}"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{led__strip_8h}{LED\_strip.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{buzzer_8h}{buzzer.h}}"{}}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MACROS}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//\ \#define\ DEBUG\_JOYSTICK\ \ //\ Uncomment\ to\ enable\ joystick\ debug\ messages}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Joystick\ sensitivity\ arbitrary\ quantum}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ SENSITIVITY\_EPSILON\ 50}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Default\ position\ of\ X\ and\ Y\ when\ the\ joystick\ is\ untouched}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ DEFAULT\_POSITION\ 520}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ MAX\_POSITION\ 1023}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ MIN\_POSITION\ 0}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ MAX\_10BITS\ 1023}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ Joystick\ switch}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SW\ 3}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VARIABLE\ DECLARATIONS}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{joystick_8h_a025a85b33749fd5dde5cb7edd7aea941}{lastDebounceTime}};}
+\DoxyCodeLine{00038\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \mbox{\hyperlink{joystick_8h_a77d7d18f51343feebbe6d0eea7b4ac57}{debounceDelay}};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{joystick_8h_a66f761d0471e843051f3c49af5a1cb82}{lastButtonState}};}
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{joystick_8h_a5002611f83f5a861df12917dd5651db8}{buttonState}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROUTINE\ PROTOTYPES}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{joystick_8h_a3ff3d9b621a0ffb09c1ecb02cb45c3c6}{readJoystick}}();}
+\DoxyCodeLine{00047\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{joystick_8h_a158b0c9b399258cd048d6d8eb1a6808d}{readJoystickSwitch}}();}
+
+\end{DoxyCode}

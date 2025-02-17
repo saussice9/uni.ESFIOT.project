@@ -1,0 +1,164 @@
+\doxysection{Inc/led\+\_\+strip.h File Reference}
+\hypertarget{led__strip_8h}{}\label{led__strip_8h}\index{Inc/led\_strip.h@{Inc/led\_strip.h}}
+{\ttfamily \#include $<$Adafruit\+\_\+\+Neo\+Pixel.\+h$>$}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a5fd6c94af05af1dd3dbdd997b09fffde}{PIN\+\_\+\+NEOPIXEL}}~4
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a893011783fefc21f30baf08142cd3c35}{NUM\+\_\+\+PIXELS}}~64
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4}{n\+\_\+color}}~4
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d}{n\+\_\+color2}}~3
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4}{n\+\_\+color3}}~3
+\item 
+\#define \mbox{\hyperlink{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284}{n\+\_\+color4}}~7
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned int \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{led__strip_8h_a447147e16288691fe1d41c906eb3b369}{update\+LED\+\_\+\+Display}} ()
+\item 
+void \mbox{\hyperlink{led__strip_8h_ac6075a6c89aecaec1c09b4ad481ff6a3}{update\+LED\+\_\+\+Mode}} ()
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{led__strip_8h_a4959e98af61a1662df8b83238c02e11f}{get\+Pattern\+Name}} (int \mbox{\hyperlink{utils_8h_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode}})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{led__strip_8h_a0cdec8271d2f488e678e87cd622a124b}{colors}} \mbox{[}\mbox{\hyperlink{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4}{n\+\_\+color}}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{led__strip_8h_a8ae647fc50d7a82b467933e030ca12ca}{colors2}} \mbox{[}\mbox{\hyperlink{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d}{n\+\_\+color2}}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{led__strip_8h_a980a4c8047a976735a0f1002abb451e4}{colors3}} \mbox{[}\mbox{\hyperlink{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4}{n\+\_\+color3}}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} \mbox{\hyperlink{led__strip_8h_a0ca00d8d470ef68aaf4018b0d6d37769}{colors4}} \mbox{[}\mbox{\hyperlink{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284}{n\+\_\+color4}}\mbox{]}\mbox{[}3\mbox{]}
+\item 
+int \mbox{\hyperlink{led__strip_8h_afd8d704fff636cf0234e92c1eade927c}{shift}}
+\item 
+int \mbox{\hyperlink{led__strip_8h_a03c475070c6bb6b0f2caa0b3b48e205e}{n\+\_\+same}}
+\item 
+Adafruit\+\_\+\+Neo\+Pixel \mbox{\hyperlink{led__strip_8h_a4c48ff019e3d74f72d584c1dcabac69c}{pixels}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4}\index{led\_strip.h@{led\_strip.h}!n\_color@{n\_color}}
+\index{n\_color@{n\_color}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{n\_color}{n\_color}}
+{\footnotesize\ttfamily \label{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4} 
+\#define n\+\_\+color~4}
+
+\Hypertarget{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d}\index{led\_strip.h@{led\_strip.h}!n\_color2@{n\_color2}}
+\index{n\_color2@{n\_color2}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{n\_color2}{n\_color2}}
+{\footnotesize\ttfamily \label{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d} 
+\#define n\+\_\+color2~3}
+
+\Hypertarget{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4}\index{led\_strip.h@{led\_strip.h}!n\_color3@{n\_color3}}
+\index{n\_color3@{n\_color3}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{n\_color3}{n\_color3}}
+{\footnotesize\ttfamily \label{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4} 
+\#define n\+\_\+color3~3}
+
+\Hypertarget{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284}\index{led\_strip.h@{led\_strip.h}!n\_color4@{n\_color4}}
+\index{n\_color4@{n\_color4}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{n\_color4}{n\_color4}}
+{\footnotesize\ttfamily \label{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284} 
+\#define n\+\_\+color4~7}
+
+\Hypertarget{led__strip_8h_a893011783fefc21f30baf08142cd3c35}\index{led\_strip.h@{led\_strip.h}!NUM\_PIXELS@{NUM\_PIXELS}}
+\index{NUM\_PIXELS@{NUM\_PIXELS}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{NUM\_PIXELS}{NUM\_PIXELS}}
+{\footnotesize\ttfamily \label{led__strip_8h_a893011783fefc21f30baf08142cd3c35} 
+\#define NUM\+\_\+\+PIXELS~64}
+
+\Hypertarget{led__strip_8h_a5fd6c94af05af1dd3dbdd997b09fffde}\index{led\_strip.h@{led\_strip.h}!PIN\_NEOPIXEL@{PIN\_NEOPIXEL}}
+\index{PIN\_NEOPIXEL@{PIN\_NEOPIXEL}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{PIN\_NEOPIXEL}{PIN\_NEOPIXEL}}
+{\footnotesize\ttfamily \label{led__strip_8h_a5fd6c94af05af1dd3dbdd997b09fffde} 
+\#define PIN\+\_\+\+NEOPIXEL~4}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}\index{led\_strip.h@{led\_strip.h}!uint@{uint}}
+\index{uint@{uint}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{uint}{uint}}
+{\footnotesize\ttfamily \label{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14} 
+typedef unsigned int \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}}
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{led__strip_8h_a4959e98af61a1662df8b83238c02e11f}\index{led\_strip.h@{led\_strip.h}!getPatternName@{getPatternName}}
+\index{getPatternName@{getPatternName}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{getPatternName()}{getPatternName()}}
+{\footnotesize\ttfamily \label{led__strip_8h_a4959e98af61a1662df8b83238c02e11f} 
+char \texorpdfstring{$\ast$}{*} get\+Pattern\+Name (\begin{DoxyParamCaption}\item[{int}]{mode}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a447147e16288691fe1d41c906eb3b369}\index{led\_strip.h@{led\_strip.h}!updateLED\_Display@{updateLED\_Display}}
+\index{updateLED\_Display@{updateLED\_Display}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{updateLED\_Display()}{updateLED\_Display()}}
+{\footnotesize\ttfamily \label{led__strip_8h_a447147e16288691fe1d41c906eb3b369} 
+void update\+LED\+\_\+\+Display (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_ac6075a6c89aecaec1c09b4ad481ff6a3}\index{led\_strip.h@{led\_strip.h}!updateLED\_Mode@{updateLED\_Mode}}
+\index{updateLED\_Mode@{updateLED\_Mode}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{updateLED\_Mode()}{updateLED\_Mode()}}
+{\footnotesize\ttfamily \label{led__strip_8h_ac6075a6c89aecaec1c09b4ad481ff6a3} 
+void update\+LED\+\_\+\+Mode (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{led__strip_8h_a0cdec8271d2f488e678e87cd622a124b}\index{led\_strip.h@{led\_strip.h}!colors@{colors}}
+\index{colors@{colors}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{colors}{colors}}
+{\footnotesize\ttfamily \label{led__strip_8h_a0cdec8271d2f488e678e87cd622a124b} 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} colors\mbox{[}\mbox{\hyperlink{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4}{n\+\_\+color}}\mbox{]}\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a8ae647fc50d7a82b467933e030ca12ca}\index{led\_strip.h@{led\_strip.h}!colors2@{colors2}}
+\index{colors2@{colors2}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{colors2}{colors2}}
+{\footnotesize\ttfamily \label{led__strip_8h_a8ae647fc50d7a82b467933e030ca12ca} 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} colors2\mbox{[}\mbox{\hyperlink{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d}{n\+\_\+color2}}\mbox{]}\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a980a4c8047a976735a0f1002abb451e4}\index{led\_strip.h@{led\_strip.h}!colors3@{colors3}}
+\index{colors3@{colors3}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{colors3}{colors3}}
+{\footnotesize\ttfamily \label{led__strip_8h_a980a4c8047a976735a0f1002abb451e4} 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} colors3\mbox{[}\mbox{\hyperlink{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4}{n\+\_\+color3}}\mbox{]}\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a0ca00d8d470ef68aaf4018b0d6d37769}\index{led\_strip.h@{led\_strip.h}!colors4@{colors4}}
+\index{colors4@{colors4}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{colors4}{colors4}}
+{\footnotesize\ttfamily \label{led__strip_8h_a0ca00d8d470ef68aaf4018b0d6d37769} 
+\mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}} colors4\mbox{[}\mbox{\hyperlink{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284}{n\+\_\+color4}}\mbox{]}\mbox{[}3\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a03c475070c6bb6b0f2caa0b3b48e205e}\index{led\_strip.h@{led\_strip.h}!n\_same@{n\_same}}
+\index{n\_same@{n\_same}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{n\_same}{n\_same}}
+{\footnotesize\ttfamily \label{led__strip_8h_a03c475070c6bb6b0f2caa0b3b48e205e} 
+int n\+\_\+same\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_a4c48ff019e3d74f72d584c1dcabac69c}\index{led\_strip.h@{led\_strip.h}!pixels@{pixels}}
+\index{pixels@{pixels}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{pixels}{pixels}}
+{\footnotesize\ttfamily \label{led__strip_8h_a4c48ff019e3d74f72d584c1dcabac69c} 
+Adafruit\+\_\+\+Neo\+Pixel pixels\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{led__strip_8h_afd8d704fff636cf0234e92c1eade927c}\index{led\_strip.h@{led\_strip.h}!shift@{shift}}
+\index{shift@{shift}!led\_strip.h@{led\_strip.h}}
+\doxysubsubsection{\texorpdfstring{shift}{shift}}
+{\footnotesize\ttfamily \label{led__strip_8h_afd8d704fff636cf0234e92c1eade927c} 
+int shift\hspace{0.3cm}{\ttfamily [extern]}}
+

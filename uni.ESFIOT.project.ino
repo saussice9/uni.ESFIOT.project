@@ -1,7 +1,13 @@
-// Project made for an Arduino Uno
-// This project is a simple robot that can be controlled by a smartphone via Bluetooth (not effective yet)
-// The robot is equipped with a NeoPixel LED strip that can display different colors and patterns, a buzzer and a joystick
-// It is also equipped with two DC motors that can be controlled by the board
+/**
+ * @file uni.ESFIOT.project.ino
+ * @brief Main Arduino project file for robot control system
+ * @details Robot features:
+ *          - Bluetooth control capability
+ *          - NeoPixel LED strip with patterns
+ *          - Buzzer for audio feedback
+ *          - Joystick input
+ *          - Dual DC motor control
+ */
 
 //=============================================================================
 //                       INCLUDE LIBRARIES AND HEADER FILES
@@ -29,7 +35,7 @@
 // BLUETOOTH
 //------------------------------------------------------------------------------
 
-#include <SoftwareSerial.h>  // Library needed by the HC05 Bluetooth module
+#include <SoftwareSerial.h>
 
 //------------------------------------------------------------------------------
 // BUZZER
@@ -47,36 +53,41 @@
 //                             SETUP PROCEDURE
 //=============================================================================
 
-// This procedure runs once at the beginning
+/**
+ * @brief Initial setup function
+ * @details Configures:
+ *          - Serial communication
+ *          - GPIO pin modes
+ *          - Motor initial states
+ *          - LED strip initialization
+ */
 void setup() {
-  Serial.begin(9600);  // Serial communication initialization
+  Serial.begin(9600);
   
-  pinMode(LED_BUILTIN, OUTPUT);  // Setting built-in LED (pin 13) as output
+  // Buillt-in LED configuration
+  pinMode(LED_BUILTIN, OUTPUT);
   
-  pinMode(BUZZER_PIN, OUTPUT);  // Setting enable buzzer pin motor (pin 2) as output
+  // Buzzer configuration
+  pinMode(BUZZER_PIN, OUTPUT);
   
-  pinMode(EN_A, OUTPUT);  // Setting enable right motor (pin 10) as output
-  pinMode(EN_B, OUTPUT);  // Setting enable left  motor (pin 5) as output
-  pinMode(IN_1, OUTPUT);  // Setting left motor (pin 9) as output
-  pinMode(IN_2, OUTPUT);  // Setting left motor (pin 8) as output
-  pinMode(IN_3, OUTPUT);  // Setting right motor (pin 7) as output
-  pinMode(IN_4, OUTPUT);  // Setting right motor (pin 6) as output
+  // Motor pins configuration
+  pinMode(EN_A, OUTPUT);
+  pinMode(EN_B, OUTPUT);
+  pinMode(IN_1, OUTPUT);
+  pinMode(IN_2, OUTPUT);
+  pinMode(IN_3, OUTPUT);
+  pinMode(IN_4, OUTPUT);
   
-  pinMode(SW, INPUT_PULLUP);  // Setting joystick switch as pull-up input
+  pinMode(SW, INPUT_PULLUP);
   
-  analogWrite(EN_A, 0);
-  analogWrite(EN_B, 0);
+  // Initial motor states (switched off)
+  resetMotorStates();
+  applyMotorsSettings();
   
-  // Switch off motors
-  digitalWrite(IN_1, LOW);
-  digitalWrite(IN_2, LOW);
-  digitalWrite(IN_3, LOW);
-  digitalWrite(IN_4, LOW);
-  
-  pinMode(PIN_NEOPIXEL, OUTPUT);  // Setting Neopixel pin (pin 4) as output
+  // NeoPixel setup
+  pinMode(PIN_NEOPIXEL, OUTPUT);
   digitalWrite(PIN_NEOPIXEL, LOW);
-  
-  pixels.begin();  // NeoPixel initialization
+  pixels.begin();
   
   updateLED_Display();
 }
@@ -85,15 +96,17 @@ void setup() {
 //                             MAIN LOOP PROCEDURE
 //=============================================================================
 
-// This procedure runs in loop
+/**
+ * @brief Main program loop
+ * @details Continuously:
+ *          - Reads joystick input
+ *          - Updates LED patterns
+ *          - Controls buzzer output
+ */
 void loop() {
-  // demoOne();
-  // demoTwo();
-  // demoThree();
-  
   readJoystick();
   updateLED_Display();
   buzz();
-  
+
   //  delay(1000); // to make serial output more readable and chill the motors
 }

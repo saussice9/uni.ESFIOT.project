@@ -1,0 +1,66 @@
+\doxysection{motor.\+h}
+\hypertarget{motor_8h_source}{}\label{motor_8h_source}\index{Inc/motor.h@{Inc/motor.h}}
+\mbox{\hyperlink{motor_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ MOTOR\ HEADER\ FILE}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INCLUDE\ LIBRARIES\ AND\ HEADER\ FILES}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TYPE\ DECLARATIONS}}
+\DoxyCodeLine{00013\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{driveMode\_t}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c}{STOPPED}},}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aad5aa01ac1825d55dfc1978ee49c4c36}{BACKWARDS}},}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1aa26736999186daf8146f809e863712a1}{FORWARD}}}
+\DoxyCodeLine{00019\ \ \ \}\ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{driveMode\_t}};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MACROS}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \#define\ DEBUG\_MOTORS\ \ //\ Uncomment\ to\ enable\ motors\ debug\ messages}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ FULL\_SPEED\ 100}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Left\ motor}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ EN\_B\ 5}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ IN\_4\ 6}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ IN\_3\ 7}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ Right\ motor}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ IN\_2\ 8}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ IN\_1\ 9}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ EN\_A\ 10}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ MOTOR\_SCALING\_FACTOR\ ((float)DEFAULT\_POSITION\ /\ FULL\_SPEED)}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VARIABLE\ DECLARATIONS}}
+\DoxyCodeLine{00043\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{extern}\ uint8\_t\ \mbox{\hyperlink{motor_8h_afecdabc33206d87e32d54cf76ac78692}{motorSpeedR}};}
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ uint8\_t\ \mbox{\hyperlink{motor_8h_afc640c61e28f4b8ade87376061c895fe}{motorSpeedL}};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{driveMode\_t}}\ \mbox{\hyperlink{motor_8h_a6c1c95c9101f823a23c5e71c1f3feebe}{driveModeR}};}
+\DoxyCodeLine{00049\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{driveMode\_t}}\ \mbox{\hyperlink{motor_8h_ac0a2d30363862342b8ebfc7cd494282c}{driveModeL}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROUTINE\ PROTOTYPES}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor_8h_a96463a21cd10afd0eb94925a2683ca94}{resetMotorStates}}();}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor_8h_aa442b2edad3cf26591898aaa37afb47d}{applyMotorsSpeed}}();}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor_8h_a492237d90b80858ea2027ef54b372cf6}{applyDriveModes}}();}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{motor_8h_a79adf21f8adc3ed186ffbfbc594c7f34}{applyMotorsSettings}}();}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{motor_8h_a7f56f786a8540f0389e2e4118ccfc04a}{getDirectionName}}(\mbox{\hyperlink{motor_8h_a27df4ec5a37300c4bd7adfdbd7347ff1}{driveMode\_t}}\ direction);}
+
+\end{DoxyCode}

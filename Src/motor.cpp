@@ -1,4 +1,10 @@
-// MOTOR SOURCE FILE
+/**
+ * @file motor.cpp
+ * @brief Provides implementation for motor control functionality.
+ *
+ * This file contains the definitions for various motor-related functions and variables.
+ * It handles the low-level control of the motors, including setting the speed and drive mode.
+ */
 
 //=============================================================================
 //                       INCLUDE LIBRARIES AND HEADER FILES
@@ -10,18 +16,34 @@
 //                             VARIABLE DEFINITIONS
 //=============================================================================
 
-uint8_t motorSpeedR = 0;
+/**
+ * @brief Left motor speed.
+ */
 uint8_t motorSpeedL = 0;
 
-driveMode_t driveModeR = STOPPED;
+/**
+ * @brief Right motor speed.
+ */
+uint8_t motorSpeedR = 0;
+
+/**
+ * @brief Left motor drive mode.
+ */
 driveMode_t driveModeL = STOPPED;
+
+/**
+ * @brief Right motor drive mode.
+ */
+driveMode_t driveModeR = STOPPED;
 
 //=============================================================================
 //                             ROUTINE DEFINITIONS
 //=============================================================================
 
 
-// This procedure set both the motors to STOPPED state and with a speed of 0
+/**
+ * @brief Resets all motor states to default values (switch-off).
+ */
 void resetMotorStates() {
   driveModeR = STOPPED;
   driveModeL = STOPPED;
@@ -29,7 +51,9 @@ void resetMotorStates() {
   motorSpeedL = 0;
 }
 
-// This procedure updates the motors speed based on the related global variables
+/**
+ * @brief Applies current speed settings to both motors.
+ */
 void applyMotorsSpeed() {
 
   // set PWM value for both motors
@@ -41,7 +65,9 @@ void applyMotorsSpeed() {
 #endif
 }
 
-// This procedure updates the drive modes for both motors based on the related global variables
+/**
+ * @brief Applies current drive mode settings to both motors.
+ */
 void applyDriveModes() {
 
   // modify drive mode for the left motor
@@ -85,13 +111,20 @@ void applyDriveModes() {
 #endif
 }
 
-// This procedure updates the settings of both motors (speed,mode) based on the global variables
+/**
+ * @brief Applies all motor configurations at once.
+ */
 void applyMotorsSettings() {
 
   applyDriveModes();
   applyMotorsSpeed();
 }
 
+/**
+ * @brief Gets string representation of motor direction.
+ * @param direction The drive mode to convert.
+ * @return Corresponding direction name.
+ */
 char* getDirectionName(driveMode_t direction) {
   switch (direction) {
     case 0:

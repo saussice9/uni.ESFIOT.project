@@ -1,0 +1,62 @@
+\doxysection{led\+\_\+strip.\+h}
+\hypertarget{led__strip_8h_source}{}\label{led__strip_8h_source}\index{Inc/led\_strip.h@{Inc/led\_strip.h}}
+\mbox{\hyperlink{led__strip_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//\ LED\ STRIP\ HEADER\ FILE}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INCLUDE\ LIBRARIES\ AND\ HEADER\ FILES}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <Adafruit\_NeoPixel.h>}\ \ \textcolor{comment}{//\ Library\ needed\ to\ control\ the\ NeoPixel\ LED\ strip}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifdef\ \_\_AVR\_\_}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <avr/power.h>}\ \ \textcolor{comment}{//\ Needed\ for\ Adafruit\ Trinket\ 16\ MHz}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utils_8h}{utils.h}}"{}}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TYPE\ DECLARATIONS}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MACROS}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \#define\ DEBUG\_STRIP\_LED\ \ //\ Uncomment\ to\ enable\ strip\ LED\ debug\ messages}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ PIN\_NEOPIXEL\ 4\ \ }\textcolor{comment}{//\ Data\ pin\ for\ the\ LED\ strip}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ NUM\_PIXELS\ 64\ \ \ }\textcolor{comment}{//\ Number\ of\ NeoPixels}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ n\_color\ 4}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ n\_color2\ 3}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ n\_color3\ 3}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ n\_color4\ 7}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ VARIABLE\ DECLARATIONS}}
+\DoxyCodeLine{00038\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ \mbox{\hyperlink{led__strip_8h_a0cdec8271d2f488e678e87cd622a124b}{colors}}[\mbox{\hyperlink{led__strip_8h_a07979d3d43f82b652025cc49a27da8f4}{n\_color}}][3];\ \ \textcolor{comment}{//\ default\ display\ for\ the\ NeoPixels}}
+\DoxyCodeLine{00041\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ \mbox{\hyperlink{led__strip_8h_a8ae647fc50d7a82b467933e030ca12ca}{colors2}}[\mbox{\hyperlink{led__strip_8h_a1c63a6ffd8be4128cef60c015bf3981d}{n\_color2}}][3];\ \ \textcolor{comment}{//\ Italy\ display}}
+\DoxyCodeLine{00042\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ \mbox{\hyperlink{led__strip_8h_a980a4c8047a976735a0f1002abb451e4}{colors3}}[\mbox{\hyperlink{led__strip_8h_a3fd55f8b34bec77f6c44ab3975d926e4}{n\_color3}}][3]\ ;\ \ \textcolor{comment}{//\ France\ display}}
+\DoxyCodeLine{00043\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{led__strip_8h_a91ad9478d81a7aaf2593e8d9c3d06a14}{uint}}\ \mbox{\hyperlink{led__strip_8h_a0ca00d8d470ef68aaf4018b0d6d37769}{colors4}}[\mbox{\hyperlink{led__strip_8h_a6ccce8c32d6374a41323bc9bc220b284}{n\_color4}}][3];\ \ \textcolor{comment}{//\ rainbow\ display}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{led__strip_8h_afd8d704fff636cf0234e92c1eade927c}{shift}};}
+\DoxyCodeLine{00046\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{led__strip_8h_a03c475070c6bb6b0f2caa0b3b48e205e}{n\_same}};\ \ \textcolor{comment}{//\ test\ purpose\ only}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{extern}\ Adafruit\_NeoPixel\ \mbox{\hyperlink{led__strip_8h_a4c48ff019e3d74f72d584c1dcabac69c}{pixels}};\ \ \textcolor{comment}{//\ Setting\ NeoPixels\ configuration}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROUTINE\ PROTOTYPES}}
+\DoxyCodeLine{00052\ \textcolor{comment}{//=============================================================================}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{led__strip_8h_a447147e16288691fe1d41c906eb3b369}{updateLED\_Display}}();}
+\DoxyCodeLine{00055\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{led__strip_8h_ac6075a6c89aecaec1c09b4ad481ff6a3}{updateLED\_Mode}}();}
+\DoxyCodeLine{00056\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}*\ \mbox{\hyperlink{led__strip_8h_a4959e98af61a1662df8b83238c02e11f}{getPatternName}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{utils_8h_a1ea5d0cb93f22f7d0fdf804bd68c3326}{mode}});}
+
+\end{DoxyCode}

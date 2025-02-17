@@ -1,4 +1,8 @@
-// BUZZER SOURCE FILE
+/**
+ * @file buzzer.cpp
+ * @brief Source file containing buzzer-related implementations and configurations
+ * @details Controls buzzer functionality and stores musical melodies
+ */
 
 //=============================================================================
 //                       INCLUDE LIBRARIES AND HEADER FILES
@@ -10,8 +14,16 @@
 //                             VARIABLE DEFINITIONS
 //=============================================================================
 
+/**
+ * @brief Current note being played by the buzzer
+ * @details Stores the frequency value of the currently playing musical note
+ */
 int note = 0;
 
+/**
+ * @brief Melody array for Pink Panther theme
+ * @details Contains frequency values for each note in the Pink Panther theme song
+ */
 const int melody_PinkPanther[] = {
     REST, REST, REST, NOTE_DS4, 
     NOTE_E4, REST, NOTE_FS4, NOTE_G4, REST, NOTE_DS4,
@@ -33,6 +45,10 @@ const int melody_PinkPanther[] = {
     NOTE_G4, NOTE_E4, NOTE_D4, NOTE_E4, NOTE_E4, NOTE_E4
 };
 
+/**
+ * @brief Duration array for Pink Panther theme
+ * @details Contains duration values corresponding to each note in melody_PinkPanther
+ */
 const int durations_PinkPanther[] = {
     2, 4, 8, 8, 
     4, 8, 8, 4, 8, 8,
@@ -58,6 +74,10 @@ const int durations_PinkPanther[] = {
 // NOKIA
 //------------------------------------------------------------------------------
 
+/**
+ * @brief Melody array for Nokia ringtone
+ * @details Contains frequency values for each note in the Nokia ringtone
+ */
 const int melody_Nokia[] = {
     NOTE_E5, NOTE_D5, NOTE_FS4, NOTE_GS4, 
     NOTE_CS5, NOTE_B4, NOTE_D4, NOTE_E4, 
@@ -65,6 +85,10 @@ const int melody_Nokia[] = {
     NOTE_A4
 };
 
+/**
+ * @brief Duration array for Nokia ringtone
+ * @details Contains duration values corresponding to each note in melody_Nokia
+ */
 const int durations_Nokia[] = {
     8, 8, 4, 4,
     8, 8, 4, 4,
@@ -76,6 +100,10 @@ const int durations_Nokia[] = {
 // SUBWAY SURFERS
 //------------------------------------------------------------------------------
 
+/**
+ * @brief Melody array for Subway Surfers theme
+ * @details Contains frequency values for each note in the Subway Surfers theme
+ */
 const int melody_SubwaySurfers[] = {
     NOTE_C4, REST, NOTE_G4, REST, NOTE_AS4, NOTE_C5, NOTE_AS4, REST, NOTE_F4, NOTE_DS4, REST,
     NOTE_C4, REST, NOTE_G4, REST, NOTE_AS4, NOTE_C5, NOTE_AS4, REST, NOTE_F4, NOTE_DS4, REST,
@@ -95,6 +123,10 @@ const int melody_SubwaySurfers[] = {
     REST,
 };
 
+/**
+ * @brief Duration array for Subway Surfers theme
+ * @details Contains duration values corresponding to each note in melody_SubwaySurfers
+ */
 const int durations_SubwaySurfers[] = {
     4, 8, 4, 8, 4, 8, 8, 16, 8, 8, 16,
     4, 8, 4, 8, 4, 8, 8, 16, 8, 8, 16,
@@ -118,6 +150,10 @@ const int durations_SubwaySurfers[] = {
 // THE SIMPSONS 
 //------------------------------------------------------------------------------
 
+/**
+ * @brief Melody array for The Simpsons theme
+ * @details Contains frequency values for each note in The Simpsons theme song
+ */
 const int melody_TheSimpsons[] = {
     NOTE_C4, NOTE_E4, NOTE_FS4, REST, NOTE_A4,
     NOTE_G4, NOTE_E4, NOTE_C4, NOTE_A3,
@@ -126,6 +162,10 @@ const int melody_TheSimpsons[] = {
     NOTE_B3, REST
 };
 
+/**
+ * @brief Duration array for The Simpsons theme
+ * @details Contains duration values corresponding to each note in melody_TheSimpsons
+ */
 const int durations_TheSimpsons[] = {
     2, 4, 4, 32, 8,
     2, 4, 4, 8,
@@ -138,8 +178,22 @@ const int durations_TheSimpsons[] = {
 // GLOBAL TABLES
 //------------------------------------------------------------------------------
 
+/**
+ * @brief Size array for music tabs
+ * @details Contains size information for each music tab
+ */
 int const size_tab[] = {sizeof(durations_PinkPanther) / sizeof(int), sizeof(durations_Nokia) / sizeof(int), sizeof(durations_SubwaySurfers) / sizeof(int), sizeof(durations_TheSimpsons) / sizeof(int)};
+
+/**
+ * @brief Duration array for music tabs
+ * @details Contains duration values for each note in the music tabs
+ */
 int const durations_tab[] = {durations_PinkPanther,durations_Nokia,durations_SubwaySurfers, durations_TheSimpsons};
+
+/**
+ * @brief Melody array for music tabs
+ * @details Contains frequency values for each note in the music tabs
+ */
 int const melody_tab[] = {melody_PinkPanther, melody_Nokia, melody_SubwaySurfers, melody_TheSimpsons};
 
 
@@ -147,6 +201,10 @@ int const melody_tab[] = {melody_PinkPanther, melody_Nokia, melody_SubwaySurfers
 //                             ROUTINE DEFINITIONS
 //=============================================================================
 
+/**
+ * @brief Main buzzer control function
+ * @details Handles the buzzer output and note playing functionality based on current mode
+ */
 void buzz(){
     
     if ( mode>=0 && mode < 8 ){
@@ -158,12 +216,12 @@ void buzz(){
             int* tab_duration = (int*)durations_tab[scaled_mode];
             int* tab_melody = (int*)melody_tab[scaled_mode];
             
-            //to calculate the note duration, take one second divided by the note type.
+            //to calculate the note duration, take one second divided by the note type
             //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
             int duration = 1000 / tab_duration[note];
             tone(BUZZER_PIN, tab_melody[note], duration);
             
-            //to distinguish the notes, set a minimum time between them.
+            //to distinguish the notes, set a minimum time between them
             //the note's duration + 20% seems to work well:
             int pauseBetweenNotes = duration * 1.20;
             delay(pauseBetweenNotes);
