@@ -35,7 +35,7 @@
 // BLUETOOTH
 //------------------------------------------------------------------------------
 
-#include <SoftwareSerial.h>
+#include "Inc/bluetooth.h"
 
 //------------------------------------------------------------------------------
 // BUZZER
@@ -62,7 +62,10 @@
  *          - LED strip initialization
  */
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(SERIAL_RATE);
+
+  // Launch Bluetooth
+  BlueT.begin(BT_RATE);
   
   // Buillt-in LED configuration
   pinMode(LED_BUILTIN, OUTPUT);
@@ -104,6 +107,9 @@ void setup() {
  *          - Controls buzzer output
  */
 void loop() {
+
+  if (BlueT.available()) BT_process();
+  
   readJoystick();
   updateLED_Display();
   buzz();

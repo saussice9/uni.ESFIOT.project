@@ -14,6 +14,16 @@
 
 #include "motor.h"
 
+
+//=============================================================================
+//                                   MACROS
+//=============================================================================
+
+/**
+ * @brief Rate the serial port communicates at.
+ */
+#define SERIAL_RATE 9600
+
 //=============================================================================
 //                              VARIABLE DECLARATIONS
 //=============================================================================
@@ -46,6 +56,11 @@ extern void demoTwo();
 * @brief Demonstration routine three.
 */
 extern void demoThree();
+
+/**
+* @brief Changes the current mode.
+*/
+extern void updateMode();
 
 /**
 * @brief Converts integer to uint8_t.

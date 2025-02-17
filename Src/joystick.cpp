@@ -140,7 +140,7 @@ void readJoystickSwitch() {
         #ifdef DEBUG_JOYSTICK || DEBUG_STRIP_LED
         debug.printf("Switch pressed, LED pattern updating... \n");
         #endif
-        updateLED_Mode();
+        updateMode();
         note = 0;
       }
     }

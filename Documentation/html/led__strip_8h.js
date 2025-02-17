@@ -9,7 +9,7 @@ var led__strip_8h =
     [ "uint", "led__strip_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14", null ],
     [ "getPatternName", "led__strip_8h.html#a4959e98af61a1662df8b83238c02e11f", null ],
     [ "updateLED_Display", "led__strip_8h.html#a447147e16288691fe1d41c906eb3b369", null ],
-    [ "updateLED_Mode", "led__strip_8h.html#ac6075a6c89aecaec1c09b4ad481ff6a3", null ],
+    [ "updateMode", "led__strip_8h.html#ac6075a6c89aecaec1c09b4ad481ff6a3", null ],
     [ "n_same", "led__strip_8h.html#a03c475070c6bb6b0f2caa0b3b48e205e", null ],
     [ "pixels", "led__strip_8h.html#a4c48ff019e3d74f72d584c1dcabac69c", null ],
     [ "RGB_values1", "led__strip_8h.html#a54b37ca59b5ce93c189886041f21018e", null ],

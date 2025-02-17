@@ -128,6 +128,20 @@ void demoThree() {
 }
 
 /**
+* @brief Changes the current mode.
+*/
+void updateMode() {
+    if (mode > 8) {
+        mode = 0;
+    } else {
+        mode += 1;
+    }
+    #ifdef DEBUG_STRIP_LED
+    debug.printf("New LED mode: %s (n° %d )\n", getPatternName(mode), mode);
+    #endif
+}
+
+/**
 * @brief Converts integer to uint8_t.
 * @param integer_value Input integer value.
 * @return Converted uint8_t value.

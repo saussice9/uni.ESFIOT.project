@@ -113,11 +113,6 @@ extern Adafruit_NeoPixel pixels;
 extern void updateLED_Display();
 
 /**
-* @brief Changes the current LED display mode.
-*/
-extern void updateLED_Mode();
-
-/**
 * @brief Retrieves the name of the current pattern.
 * @param mode Current display mode number.
 * @return Name of the active pattern.

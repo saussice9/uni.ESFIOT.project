@@ -176,21 +176,6 @@ void updateLED_Display() {
 }
 
 /**
-* @brief Changes the current LED display mode.
-*/
-void updateLED_Mode() {
-  if (mode > 8) {
-    mode = 0;
-  } else {
-    mode += 1;
-  }
-  // counter_change_mode = 0;
-  #ifdef DEBUG_STRIP_LED
-  debug.printf("NEw LED mode: %s (n° %d )\n", getPatternName(mode), mode);
-  #endif
-}
-
-/**
 * @brief Retrieves the name of the current pattern.
 * @param mode Current display mode number.
 * @return Name of the active pattern.
