@@ -1,10 +1,16 @@
-#include <pitches.h>
+// BUZZER SOURCE FILE
 
+//=============================================================================
+//                       INCLUDE LIBRARIES AND HEADER FILES
+//=============================================================================
 
-//------------------------------------------------------------------------------
-// PINK PANTHER
-//------------------------------------------------------------------------------
+#include "../Inc/buzzer.h"
 
+//=============================================================================
+//                             VARIABLE DEFINITIONS
+//=============================================================================
+
+int note = 0;
 
 const int melody_PinkPanther[] = {
     REST, REST, REST, NOTE_DS4, 
@@ -108,7 +114,6 @@ const int durations_SubwaySurfers[] = {
     1
 };
 
-
 //------------------------------------------------------------------------------
 // THE SIMPSONS 
 //------------------------------------------------------------------------------
@@ -130,9 +135,47 @@ const int durations_TheSimpsons[] = {
 };
 
 //------------------------------------------------------------------------------
-// MUSIC TABS
+// GLOBAL TABLES
 //------------------------------------------------------------------------------
 
 int const size_tab[] = {sizeof(durations_PinkPanther) / sizeof(int), sizeof(durations_Nokia) / sizeof(int), sizeof(durations_SubwaySurfers) / sizeof(int), sizeof(durations_TheSimpsons) / sizeof(int)};
 int const durations_tab[] = {durations_PinkPanther,durations_Nokia,durations_SubwaySurfers, durations_TheSimpsons};
 int const melody_tab[] = {melody_PinkPanther, melody_Nokia, melody_SubwaySurfers, melody_TheSimpsons};
+
+
+//=============================================================================
+//                             ROUTINE DEFINITIONS
+//=============================================================================
+
+void buzz(){
+    
+    if ( mode>=0 && mode < 8 ){
+        
+        int scaled_mode = mode%4; 
+        
+        if (note < size_tab[scaled_mode]) {
+            
+            int* tab_duration = (int*)durations_tab[scaled_mode];
+            int* tab_melody = (int*)melody_tab[scaled_mode];
+            
+            //to calculate the note duration, take one second divided by the note type.
+            //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+            int duration = 1000 / tab_duration[note];
+            tone(BUZZER_PIN, tab_melody[note], duration);
+            
+            //to distinguish the notes, set a minimum time between them.
+            //the note's duration + 20% seems to work well:
+            int pauseBetweenNotes = duration * 1.20;
+            delay(pauseBetweenNotes);
+            
+            //stop the tone playing:
+            noTone(BUZZER_PIN);
+            note++;
+        }else{
+            noTone(BUZZER_PIN);
+            delay(100);
+        }
+    } else{
+        delay(100);
+    }
+}
