@@ -42,9 +42,8 @@ void BT_process() {
     #endif
 
     if (BT_Data == 'M') {
-        #ifdef DEBUG_BT
-        debug.printf("Received 'M'\n");
-        #endif
         updateMode();
+    }else{
+        readJoystick(true, BT_Data);
     }
 }

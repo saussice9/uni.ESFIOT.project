@@ -109,10 +109,10 @@ void setup() {
 void loop() {
 
   if (BlueT.available()) BT_process();
+  
+  // delay(200); // to make serial output more readable and chill the motors
 
-  delay(200); // to make serial output more readable and chill the motors
-
-  readJoystick();
-  updateLED_Display();
+  // readJoystick(true, int BT_DATA);
+  updateLED_Display() ;
   buzz();
 }

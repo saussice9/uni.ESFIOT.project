@@ -29,7 +29,7 @@
 /**
  * @brief Enables debugging output for the motor control.
  */
-// #define DEBUG_MOTORS
+#define DEBUG_MOTORS
 
 
 /**

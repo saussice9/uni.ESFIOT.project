@@ -52,19 +52,67 @@ int buttonState;
 *          - LED patterns
 *          - Operating modes
 */
-void readJoystick() {
-  readJoystickSwitch();
+void readJoystick(bool use_BT, char BT_Data) {
   
-  int X = analogRead(A0);  
-  int Y = analogRead(A1);
-  #ifdef DEBUG_JOYSTICK
-  debug.printf("(X, Y) = (%d,%d)\n", X, Y);
-  #endif
+  int scaled_X; 
+  int scaled_Y;
   
-  // Read joystick values
-  int scaled_X = analogRead(A0) - DEFAULT_POSITION;  // scaled_X ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
-  int scaled_Y = analogRead(A1) - DEFAULT_POSITION;  // scaled_Y ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
-  
+  if (use_BT){
+    switch (BT_Data){
+      case 'A':
+      scaled_X = DEFAULT_POSITION; 
+      scaled_Y = 0;
+      break;
+      case 'B':
+      scaled_X = DEFAULT_POSITION; 
+      scaled_Y = DEFAULT_POSITION;
+      break;
+      case 'C':
+      scaled_X = 0; 
+      scaled_Y = DEFAULT_POSITION;
+      break;
+      case 'D':
+      scaled_X = -DEFAULT_POSITION; 
+      scaled_Y = DEFAULT_POSITION;
+      break;
+      case 'E':
+      scaled_X = -DEFAULT_POSITION;
+      scaled_Y = 0;
+      break;
+      case 'F':
+      scaled_X = -DEFAULT_POSITION; 
+      scaled_Y = -DEFAULT_POSITION;
+      break;
+      case 'G':
+      scaled_X = 0; 
+      scaled_Y = -DEFAULT_POSITION;
+      break;
+      case 'H':
+      scaled_X = DEFAULT_POSITION; 
+      scaled_Y = -DEFAULT_POSITION;
+      break;
+      case 'S':
+      scaled_X = 0; 
+      scaled_Y = 0;
+      break;
+      default:
+      return;
+    }
+  }
+  else{
+    
+    readJoystickSwitch();
+    
+    int X = analogRead(A0);  
+    int Y = analogRead(A1);
+    #ifdef DEBUG_JOYSTICK
+    debug.printf("(X, Y) = (%d,%d)\n", X, Y);
+    #endif
+    
+    // Read joystick values
+    scaled_X = analogRead(A0) - DEFAULT_POSITION;  // scaled_X ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
+    scaled_Y = analogRead(A1) - DEFAULT_POSITION;  // scaled_Y ∈ [-DEFAULT_POSITION, DEFAULT_POSITION ]
+  }
   #ifdef DEBUG_MOTORS
   debug.printf("(scaled_X, scaled_Y) = (%d,%d)\n", scaled_X, scaled_Y);
   #endif
@@ -116,8 +164,8 @@ void readJoystick() {
       }
     }
   }
-  applyMotorsSettings();
   
+  applyMotorsSettings();
 }
 
 /**

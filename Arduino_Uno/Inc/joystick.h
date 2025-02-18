@@ -73,9 +73,15 @@ extern int buttonState;
 //=============================================================================
 
 /**
-* @brief Read joystick position and process the data.
-*/
-extern void readJoystick();
+ * @brief Read BT received joystick position and process the data.
+ * @param BT_DATA The Bluetooth data to be processed.
+ */
+/**
+ * @brief Read joystick output, from Bluetooth or from the physical joystick, and process the data.
+ * @param use_BT Indicates whether to use Bluetooth data or not.
+ * @param BT_DATA The Bluetooth data to be processed.
+ */
+extern void readJoystick(bool use_BT, char BT_Data);
 
 /**
 * @brief Read the joystick switch state and update the LED pattern accordingly.
