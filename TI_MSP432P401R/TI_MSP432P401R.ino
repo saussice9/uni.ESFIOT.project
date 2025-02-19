@@ -9,6 +9,50 @@
 #define SERIAL_RATE 9600
 #define BT_RATE 57600
 
+/**
+* @brief Last time the joystick button state was debounced.
+* @details Used for timing in the debounce mechanism.
+*/
+unsigned long lastDebounceTime = 0;
+
+/**
+* @brief Time interval required between state changes for debouncing.
+* @details Defines how long to wait before accepting a button state change.
+*/
+const unsigned long debounceDelay = 50;
+
+/**
+* @brief Previous state of the joystick button.
+* @details Used to detect changes in button state.
+*/
+int lastButtonState = HIGH;
+
+/**
+* @brief Current debounced state of the joystick button.
+* @details Represents the validated button state after debouncing.
+*/
+int buttonState;
+
+/**
+* @brief Handles joystick button state.
+* @details Implements debounce logic and mode switching.
+*/
+void readJoystickSwitch() {
+  int JOYSTICK_SEL_state = digitalRead(JOYSTICK_SEL);
+  
+  if (JOYSTICK_SEL_state != lastButtonState) {
+    lastDebounceTime = millis();
+  }
+  
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    if (JOYSTICK_SEL_state != buttonState) {
+      buttonState = JOYSTICK_SEL_state;
+    }
+  } 
+  lastButtonState = JOYSTICK_SEL_state;
+}
+
+
 void setup() {
 
   // initialize the pushbutton pin as an input:
@@ -18,9 +62,8 @@ void setup() {
 }
 
 void loop() {
-
-  int JOYSTICK_SEL_state = digitalRead(JOYSTICK_SEL);
-  if (JOYSTICK_SEL_state == HIGH) {
+  readJoystickSwitch();
+  if (buttonState == HIGH) {
     
     // read the analog value of joystick two axis
     int JOYSTICK_X_state = analogRead(JOYSTICK_X);
@@ -48,6 +91,7 @@ void loop() {
 
   } else {
     // change mode by pressing the joystick switch
+    
     Serial1.write("M");
     Serial.write("M");
   }
