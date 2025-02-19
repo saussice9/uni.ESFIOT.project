@@ -25,13 +25,11 @@
  */
 #define SERIAL_RATE 38400
 
-
 /**
  * @brief Enables debugging output for the motor control.
  * This macro can be uncommented to enable additional debugging output related to the motors.
  */
-#define DEBUG_MOTORS
-
+// #define DEBUG_MOTORS
 
 /**
 * @brief Enables debugging output for the LED strip.
@@ -44,13 +42,19 @@
  * @brief Enables debugging output for the joystick.
  * This macro can be uncommented to enable additional debugging output related to joystick operations.
  */
-#define DEBUG_JOYSTICK
+// #define DEBUG_JOYSTICK
 
 /**
  * @brief Enables debugging output for Bluetooth.
  * This macro can be uncommented to enable additional debugging output related to Bluetooth operations.
  */
 #define DEBUG_BT
+
+/**
+ * @brief Enables debugging output for buzzer.
+ * This macro can be uncommented to enable additional debugging output related to the buzzer operations.
+ */
+#define DEBUG_BUZZER
 
 //=============================================================================
 //                              VARIABLE DECLARATIONS

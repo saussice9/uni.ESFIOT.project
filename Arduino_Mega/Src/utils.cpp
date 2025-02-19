@@ -27,7 +27,7 @@ Bonezegei_Printf debug(&Serial);
 * @brief Increments the current LED and buzzer mode. Mode values range from 0 to 8.
 */
 void updateMode() {
-    mode = (mode>8) ? 0 : mode+1;
+    mode = (mode > 7) ? 0 : mode + 1;
 }
 
 /**

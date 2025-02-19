@@ -97,16 +97,6 @@ extern const uint RGB_values3[n_LED3][3];
 extern const uint RGB_values4[n_LED4][3];
 
 /**
-* @brief Pattern control variable that controls the offset of the LED display pattern.
-*/
-extern int offset;  
-
-/**
-* @brief Variable that tracks the number of LEDs that are the same color in the current display pattern (pattern 8 only).
-*/
-extern int n_same; 
-
-/**
 * @brief Current operating mode for LED and buzzer.
 * @details Here are the possible patterns for LED and buzzer patterns:
 *   - 0: Default static, Pink Panther theme
@@ -117,7 +107,7 @@ extern int n_same;
 *   - 5: Italy dynamic, Nokia ringtone
 *   - 6: France dynamic, Subway Surfers theme
 *   - 7: Rainbow dynamic, The Simpsons theme
-*   - 8: Rainbow dynamic and faded
+*   - 8: LED off
 *  
 */
 extern int mode;
@@ -132,9 +122,22 @@ extern Adafruit_NeoPixel pixels;
 //=============================================================================
 
 /**
-* @brief Updates the strip LED displayed pattern.
-*/
+ * @brief Updates the LED display based on the current mode.
+ * 
+ * This function handles the logic for updating the LED display. 
+ * It clears the NeoPixel strip, applies timing control for dynamic modes, and then sets the
+ * pixel colors based on the current display mode. 
+ * The procedure supports four different patterns: default, Italy, France, and rainbow. 
+ * It also handles both static and dynamic modes.
+ */
 extern void updateLED_Display();
+
+/**
+ * @brief Retrieves the size of the LED pattern based on the current display mode.
+ * @param mode The current display mode number.
+ * @return The size of the LED pattern for the given mode.
+ */
+extern int getPatternSize(int mode);
 
 /**
 * @brief Retrieves the name of the current pattern.

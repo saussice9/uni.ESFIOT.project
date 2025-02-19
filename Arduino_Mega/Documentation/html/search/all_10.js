@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['serial_0',['Serial',['../utils_8cpp.html#a84d6dce5594db03db9b7d586ae562db4',1,'utils.cpp']]],
-  ['serial_5frate_1',['SERIAL_RATE',['../utils_8h.html#a547bdcdc76ae897bea6667851dd03bd7',1,'utils.h']]],
-  ['size_5ftab_2',['size_tab',['../buzzer_8h.html#aff1c9a0e3aa03a92f775a38b6d8975fd',1,'size_tab:&#160;buzzer.cpp'],['../buzzer_8cpp.html#aff1c9a0e3aa03a92f775a38b6d8975fd',1,'size_tab:&#160;buzzer.cpp']]],
-  ['stopped_3',['STOPPED',['../motor_8h.html#a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c',1,'motor.h']]],
-  ['strip_5fled_2ecpp_4',['strip_led.cpp',['../strip__led_8cpp.html',1,'']]],
-  ['strip_5fled_2eh_5',['strip_led.h',['../strip__led_8h.html',1,'']]],
-  ['sw_6',['SW',['../joystick_8h.html#a4b95e941f44a20ea60512bbe2065f0b6',1,'joystick.h']]]
+  ['uint_0',['uint',['../strip__led_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14',1,'strip_led.h']]],
+  ['updateled_5fdisplay_1',['updateLED_Display',['../strip__led_8h.html#a447147e16288691fe1d41c906eb3b369',1,'updateLED_Display():&#160;strip_led.cpp'],['../strip__led_8cpp.html#a447147e16288691fe1d41c906eb3b369',1,'updateLED_Display():&#160;strip_led.cpp']]],
+  ['updatemode_2',['updateMode',['../utils_8h.html#abd325c13002746d51d793aca5f52a5c7',1,'updateMode():&#160;utils.cpp'],['../utils_8cpp.html#abd325c13002746d51d793aca5f52a5c7',1,'updateMode():&#160;utils.cpp']]],
+  ['us_3',['About us',['../md__r_e_a_d_m_e.html#autotoc_md6',1,'']]],
+  ['use_20it_4',['How to use it ?',['../md__r_e_a_d_m_e.html#autotoc_md5',1,'']]],
+  ['utils_2ecpp_5',['utils.cpp',['../utils_8cpp.html',1,'']]],
+  ['utils_2eh_6',['utils.h',['../utils_8h.html',1,'']]]
 ];

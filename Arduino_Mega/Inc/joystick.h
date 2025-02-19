@@ -65,28 +65,10 @@ typedef enum joystickInput_t {
 //=============================================================================
 
 /**
-* @brief Last time the joystick button state was debounced.
-* @details Used for timing in the debounce mechanism.
-*/
-extern unsigned long lastDebounceTime;
-
-/**
 * @brief Time interval required between state changes for debouncing.
 * @details Defines how long to wait before accepting a button state change.
 */
-extern const unsigned long debounceDelay;
-
-/**
-* @brief Previous state of the joystick button.
-* @details Used to detect changes in button state.
-*/
-extern int lastButtonState;
-
-/**
-* @brief Current debounced state of the joystick button.
-* @details Represents the validated button state after debouncing.
-*/
-extern int buttonState;
+extern const unsigned int debounceDelay;
 
 /**
  * @brief Represents the current joystick input.
@@ -113,7 +95,6 @@ extern void readJoystick();
  * @param scaled_Y Pointer to an integer where the scaled Y value will be stored.
  */
 extern void readAndScaleHardwareJoystick(int* scaled_X, int* scaled_Y);
-
 
 /**
 * @brief Handles joystick button state.

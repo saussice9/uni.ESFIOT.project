@@ -121,8 +121,11 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2b8b7bb29d50fd47195c9e13e7f2d112"><td class="mdescLeft">&#160;</td><td class="mdescRight">NeoPixel strip controller instance.  <br /></td></tr>
 <tr class="separator:a2b8b7bb29d50fd47195c9e13e7f2d112"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a447147e16288691fe1d41c906eb3b369" id="r_a447147e16288691fe1d41c906eb3b369"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a447147e16288691fe1d41c906eb3b369">updateLED_Display</a> ()</td></tr>
-<tr class="memdesc:a447147e16288691fe1d41c906eb3b369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the strip LED displayed pattern.  <br /></td></tr>
+<tr class="memdesc:a447147e16288691fe1d41c906eb3b369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the LED display based on the current mode.  <br /></td></tr>
 <tr class="separator:a447147e16288691fe1d41c906eb3b369"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1df008af85c0574ae4459f8106b8d279" id="r_a1df008af85c0574ae4459f8106b8d279"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1df008af85c0574ae4459f8106b8d279">getPatternSize</a> (int <a class="el" href="strip__led_8h.html#a1ea5d0cb93f22f7d0fdf804bd68c3326">mode</a>)</td></tr>
+<tr class="memdesc:a1df008af85c0574ae4459f8106b8d279"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the size of the LED pattern based on the current display mode.  <br /></td></tr>
+<tr class="separator:a1df008af85c0574ae4459f8106b8d279"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4959e98af61a1662df8b83238c02e11f" id="r_a4959e98af61a1662df8b83238c02e11f"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4959e98af61a1662df8b83238c02e11f">getPatternName</a> (int <a class="el" href="strip__led_8h.html#a1ea5d0cb93f22f7d0fdf804bd68c3326">mode</a>)</td></tr>
 <tr class="memdesc:a4959e98af61a1662df8b83238c02e11f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the name of the current pattern.  <br /></td></tr>
 <tr class="separator:a4959e98af61a1662df8b83238c02e11f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -141,12 +144,6 @@ Variables</h2></td></tr>
 <tr class="memitem:a1831b64df5bcafa37309517760f33004" id="r_a1831b64df5bcafa37309517760f33004"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="strip__led_8h.html#a91ad9478d81a7aaf2593e8d9c3d06a14">uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1831b64df5bcafa37309517760f33004">RGB_values4</a> [<a class="el" href="strip__led_8h.html#a9ea6f0f164502277dca78f64799387c0">n_LED4</a>][3] = { { 30, 2, 50 }, { 0, 0, 100 }, { 5, 50, 30 }, { 0, 100, 0 }, { 50, 40, 0 }, { 75, 15, 0 }, { 100, 0, 0 } }</td></tr>
 <tr class="memdesc:a1831b64df5bcafa37309517760f33004"><td class="mdescLeft">&#160;</td><td class="mdescRight">RGB color values for rainbow pattern.  <br /></td></tr>
 <tr class="separator:a1831b64df5bcafa37309517760f33004"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed7ea92f45bd273dde380a45ddced592" id="r_aed7ea92f45bd273dde380a45ddced592"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed7ea92f45bd273dde380a45ddced592">offset</a> = 0</td></tr>
-<tr class="memdesc:aed7ea92f45bd273dde380a45ddced592"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pattern control variable that controls the offset of the LED display pattern.  <br /></td></tr>
-<tr class="separator:aed7ea92f45bd273dde380a45ddced592"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03c475070c6bb6b0f2caa0b3b48e205e" id="r_a03c475070c6bb6b0f2caa0b3b48e205e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03c475070c6bb6b0f2caa0b3b48e205e">n_same</a> = 0</td></tr>
-<tr class="memdesc:a03c475070c6bb6b0f2caa0b3b48e205e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks the number of LEDs that are the same color in the current display pattern (pattern 8 only).  <br /></td></tr>
-<tr class="separator:a03c475070c6bb6b0f2caa0b3b48e205e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ea5d0cb93f22f7d0fdf804bd68c3326" id="r_a1ea5d0cb93f22f7d0fdf804bd68c3326"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ea5d0cb93f22f7d0fdf804bd68c3326">mode</a> = 0</td></tr>
 <tr class="memdesc:a1ea5d0cb93f22f7d0fdf804bd68c3326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current operating mode for LED and buzzer.  <br /></td></tr>
 <tr class="separator:a1ea5d0cb93f22f7d0fdf804bd68c3326"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -178,6 +175,32 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Name of the active pattern. </dd></dl>
+
+</div>
+</div>
+<a id="a1df008af85c0574ae4459f8106b8d279" name="a1df008af85c0574ae4459f8106b8d279"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1df008af85c0574ae4459f8106b8d279">&#9670;&#160;</a></span>getPatternSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int getPatternSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>mode</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the size of the LED pattern based on the current display mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>The current display mode number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The size of the LED pattern for the given mode. </dd></dl>
 
 </div>
 </div>
@@ -224,7 +247,8 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the strip LED displayed pattern. </p>
+<p>Updates the LED display based on the current mode. </p>
+<p>This function handles the logic for updating the LED display. It clears the NeoPixel strip, applies timing control for dynamic modes, and then sets the pixel colors based on the current display mode. The procedure supports four different patterns: default, Italy, France, and rainbow. It also handles both static and dynamic modes. </p>
 
 </div>
 </div>
@@ -251,41 +275,8 @@ Variables</h2></td></tr>
 <li>5: Italy dynamic, Nokia ringtone</li>
 <li>6: France dynamic, Subway Surfers theme</li>
 <li>7: Rainbow dynamic, The Simpsons theme</li>
-<li>8: Rainbow dynamic and faded </li>
+<li>8: LED off </li>
 </ul>
-
-</div>
-</div>
-<a id="a03c475070c6bb6b0f2caa0b3b48e205e" name="a03c475070c6bb6b0f2caa0b3b48e205e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03c475070c6bb6b0f2caa0b3b48e205e">&#9670;&#160;</a></span>n_same</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int n_same = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tracks the number of LEDs that are the same color in the current display pattern (pattern 8 only). </p>
-<p>Variable that tracks the number of LEDs that are the same color in the current display pattern (pattern 8 only). </p>
-
-</div>
-</div>
-<a id="aed7ea92f45bd273dde380a45ddced592" name="aed7ea92f45bd273dde380a45ddced592"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed7ea92f45bd273dde380a45ddced592">&#9670;&#160;</a></span>offset</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int offset = 0</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Pattern control variable that controls the offset of the LED display pattern. </p>
 
 </div>
 </div>

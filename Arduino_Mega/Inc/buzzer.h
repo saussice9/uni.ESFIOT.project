@@ -112,17 +112,17 @@
  /**
   * @brief Array containing the sizes of all the music tracks.
   */
- extern int const size_tab[];
+ extern const int* const size_tab[];
  
  /**
   * @brief Array containing the addresses of the duration array for each music track.
   */
- extern int const durations_tab[];
+ extern const int* const durations_tab[];
  
  /**
   * @brief Array containing the addresses of the melody array for each music track.
   */
- extern int const melody_tab[];
+ extern const int* const  melody_tab[];
  
  //=============================================================================
  //                           ROUTINE PROTOTYPES

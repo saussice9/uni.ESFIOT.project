@@ -18,28 +18,10 @@
 //=============================================================================
 
 /**
-* @brief Last time the joystick button state was debounced.
-* @details Used for timing in the debounce mechanism.
-*/
-unsigned long lastDebounceTime = 0;
-
-/**
 * @brief Time interval required between state changes for debouncing.
 * @details Defines how long to wait before accepting a button state change.
 */
-const unsigned long debounceDelay = 50;
-
-/**
-* @brief Previous state of the joystick button.
-* @details Used to detect changes in button state.
-*/
-int lastButtonState = HIGH;
-
-/**
-* @brief Current debounced state of the joystick button.
-* @details Represents the validated button state after debouncing.
-*/
-int buttonState;
+const unsigned int debounceDelay = 50;
 
 /**
 * @brief Represents the current joystick input.
@@ -115,6 +97,17 @@ void readAndScaleHardwareJoystick(int* scaled_X, int* scaled_Y) {
 * @details Implements debounce logic and mode switching.
 */
 void readJoystickSwitch() {
+
+  // Last time the joystick button state was debounced. Used for timing in the debounce mechanism.
+  static unsigned long lastDebounceTime = 0;
+
+  // Previous state of the joystick button. Used to detect changes in button state.
+  static int lastButtonState = HIGH;
+
+  // Current debounced state of the joystick button. Represents the validated button state after debouncing.
+  static int buttonState;
+
+  // Read the current state of the joystick button.
   int SW_value = digitalRead(SW);
   
   if (SW_value != lastButtonState) {

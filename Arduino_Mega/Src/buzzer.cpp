@@ -182,19 +182,34 @@ const int durations_TheSimpsons[] = {
  * @brief Size array for music tabs.
  * @details Contains size information for each music tab.
  */
-int const size_tab[] = {sizeof(durations_PinkPanther) / sizeof(int), sizeof(durations_Nokia) / sizeof(int), sizeof(durations_SubwaySurfers) / sizeof(int), sizeof(durations_TheSimpsons) / sizeof(int)};
+const int* const size_tab[] = {
+    sizeof(durations_PinkPanther) / sizeof(int),
+    sizeof(durations_Nokia) / sizeof(int),
+    sizeof(durations_SubwaySurfers) / sizeof(int),
+    sizeof(durations_TheSimpsons) / sizeof(int)
+};
 
 /**
  * @brief Duration array for music tabs.
  * @details Contains duration values for each note in the music tabs.
  */
-int const durations_tab[] = {durations_PinkPanther,durations_Nokia,durations_SubwaySurfers, durations_TheSimpsons};
+const int* const durations_tab[] = {
+    durations_PinkPanther,
+    durations_Nokia,
+    durations_SubwaySurfers,
+    durations_TheSimpsons
+};
 
 /**
  * @brief Melody array for music tabs.
  * @details Contains frequency values for each note in the music tabs.
  */
-int const melody_tab[] = {melody_PinkPanther, melody_Nokia, melody_SubwaySurfers, melody_TheSimpsons};
+const int* const melody_tab[] = {
+    melody_PinkPanther,
+    melody_Nokia,
+    melody_SubwaySurfers,
+    melody_TheSimpsons
+};
 
 
 //=============================================================================
@@ -205,36 +220,46 @@ int const melody_tab[] = {melody_PinkPanther, melody_Nokia, melody_SubwaySurfers
  * @brief Main buzzer control function.
  * @details Handles the buzzer output and note playing functionality based on current mode.
  */
+
+ // Modify the buzz function to reset note counter on mode change
 void buzz(){
+    static int previous_mode = -1;
     
-    if ( mode>=0 && mode < 8 ){
+    if (mode >= 0 && mode < 8) {
+
+        #ifdef DEBUG_BUZZER
+        debug.printf("Mode in buzzer: %d ", mode);
+        #endif
         
         // mode variable modulo 4 in order to have 2 patterns per music
-        int scaled_mode = mode % 4;  
+        int scaled_mode = mode % 4;
         
+        // Reset note when mode changes
+        if (previous_mode != mode) {
+            note = 0;
+            previous_mode = mode;
+        }
+
         if (note < size_tab[scaled_mode]) {
-            
-            int* tab_duration = (int*)durations_tab[scaled_mode];
-            int* tab_melody = (int*)melody_tab[scaled_mode];
             
             //to calculate the note duration, take one second divided by the note type
             //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
-            int duration = 1000 / tab_duration[note];
-            tone(BUZZER_PIN, tab_melody[note], duration);
+            int duration = 1000 / durations_tab[scaled_mode][note];
+            tone(BUZZER_PIN, melody_tab[scaled_mode][note], duration);
             
             //to distinguish the notes, set a minimum time between them
             //the note's duration + 20% seems to work well
             int pauseBetweenNotes = duration * 1.20;
             delay(pauseBetweenNotes);
-            
+
             //stop the tone playing
             noTone(BUZZER_PIN);
             note++;
-        }else{
+        } else {
             noTone(BUZZER_PIN);
             delay(100);
         }
-    } else{
+    } else {
         delay(100);
     }
 }

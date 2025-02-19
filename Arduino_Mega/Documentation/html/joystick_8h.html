@@ -174,18 +174,9 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a025a85b33749fd5dde5cb7edd7aea941" id="r_a025a85b33749fd5dde5cb7edd7aea941"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a025a85b33749fd5dde5cb7edd7aea941">lastDebounceTime</a></td></tr>
-<tr class="memdesc:a025a85b33749fd5dde5cb7edd7aea941"><td class="mdescLeft">&#160;</td><td class="mdescRight">Last time the joystick button state was debounced.  <br /></td></tr>
-<tr class="separator:a025a85b33749fd5dde5cb7edd7aea941"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d466b68c5e24096e6bcd063f3ab8736" id="r_a7d466b68c5e24096e6bcd063f3ab8736"><td class="memItemLeft" align="right" valign="top">const unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d466b68c5e24096e6bcd063f3ab8736">debounceDelay</a></td></tr>
-<tr class="memdesc:a7d466b68c5e24096e6bcd063f3ab8736"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time interval required between state changes for debouncing.  <br /></td></tr>
-<tr class="separator:a7d466b68c5e24096e6bcd063f3ab8736"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f761d0471e843051f3c49af5a1cb82" id="r_a66f761d0471e843051f3c49af5a1cb82"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a66f761d0471e843051f3c49af5a1cb82">lastButtonState</a></td></tr>
-<tr class="memdesc:a66f761d0471e843051f3c49af5a1cb82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous state of the joystick button.  <br /></td></tr>
-<tr class="separator:a66f761d0471e843051f3c49af5a1cb82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5002611f83f5a861df12917dd5651db8" id="r_a5002611f83f5a861df12917dd5651db8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5002611f83f5a861df12917dd5651db8">buttonState</a></td></tr>
-<tr class="memdesc:a5002611f83f5a861df12917dd5651db8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current debounced state of the joystick button.  <br /></td></tr>
-<tr class="separator:a5002611f83f5a861df12917dd5651db8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5a4e83e83c7bd9efb12665ad374fc43" id="r_ab5a4e83e83c7bd9efb12665ad374fc43"><td class="memItemLeft" align="right" valign="top">const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab5a4e83e83c7bd9efb12665ad374fc43">debounceDelay</a></td></tr>
+<tr class="memdesc:ab5a4e83e83c7bd9efb12665ad374fc43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time interval required between state changes for debouncing.  <br /></td></tr>
+<tr class="separator:ab5a4e83e83c7bd9efb12665ad374fc43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac29812011cae5ec3aa139c1725ac72ae" id="r_ac29812011cae5ec3aa139c1725ac72ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a52182ff5330f85ab8c2d24b65364a0d9">joystickInput_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac29812011cae5ec3aa139c1725ac72ae">JOYSTICK_INPUT</a></td></tr>
 <tr class="memdesc:ac29812011cae5ec3aa139c1725ac72ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the current joystick input.  <br /></td></tr>
 <tr class="separator:ac29812011cae5ec3aa139c1725ac72ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -471,8 +462,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a5002611f83f5a861df12917dd5651db8" name="a5002611f83f5a861df12917dd5651db8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5002611f83f5a861df12917dd5651db8">&#9670;&#160;</a></span>buttonState</h2>
+<a id="ab5a4e83e83c7bd9efb12665ad374fc43" name="ab5a4e83e83c7bd9efb12665ad374fc43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5a4e83e83c7bd9efb12665ad374fc43">&#9670;&#160;</a></span>debounceDelay</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -481,32 +472,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int buttonState</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Current debounced state of the joystick button. </p>
-<p>Represents the validated button state after debouncing. </p>
-
-</div>
-</div>
-<a id="a7d466b68c5e24096e6bcd063f3ab8736" name="a7d466b68c5e24096e6bcd063f3ab8736"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d466b68c5e24096e6bcd063f3ab8736">&#9670;&#160;</a></span>debounceDelay</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const unsigned long debounceDelay</td>
+          <td class="memname">const unsigned int debounceDelay</td>
         </tr>
       </table>
   </td>
@@ -542,56 +508,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Represents the current joystick input. </p>
-
-</div>
-</div>
-<a id="a66f761d0471e843051f3c49af5a1cb82" name="a66f761d0471e843051f3c49af5a1cb82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66f761d0471e843051f3c49af5a1cb82">&#9670;&#160;</a></span>lastButtonState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int lastButtonState</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Previous state of the joystick button. </p>
-<p>Used to detect changes in button state. </p>
-
-</div>
-</div>
-<a id="a025a85b33749fd5dde5cb7edd7aea941" name="a025a85b33749fd5dde5cb7edd7aea941"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a025a85b33749fd5dde5cb7edd7aea941">&#9670;&#160;</a></span>lastDebounceTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned long lastDebounceTime</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Last time the joystick button state was debounced. </p>
-<p>Used for timing in the debounce mechanism. </p>
 
 </div>
 </div>

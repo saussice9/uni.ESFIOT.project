@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['parsevalue_0',['parseValue',['../bluetooth_8h.html#ab7c740177b7e8b4ab02e6e5216f64ea9',1,'parseValue(String data, char axis):&#160;bluetooth.cpp'],['../bluetooth_8cpp.html#ab7c740177b7e8b4ab02e6e5216f64ea9',1,'parseValue(String data, char axis):&#160;bluetooth.cpp']]],
-  ['pin_5fneopixel_1',['PIN_NEOPIXEL',['../strip__led_8h.html#a5fd6c94af05af1dd3dbdd997b09fffde',1,'strip_led.h']]],
-  ['pixels_2',['pixels',['../strip__led_8h.html#a4c48ff019e3d74f72d584c1dcabac69c',1,'pixels:&#160;strip_led.h'],['../strip__led_8cpp.html#a2b8b7bb29d50fd47195c9e13e7f2d112',1,'pixels(NUM_PIXELS, PIN_NEOPIXEL, NEO_GRB+NEO_KHZ800):&#160;strip_led.cpp']]],
-  ['project_3',['uni.ESFIOT.project',['../md__r_e_a_d_m_e.html',1,'']]]
+  ['serial_0',['Serial',['../utils_8cpp.html#a84d6dce5594db03db9b7d586ae562db4',1,'utils.cpp']]],
+  ['serial_5frate_1',['SERIAL_RATE',['../utils_8h.html#a547bdcdc76ae897bea6667851dd03bd7',1,'utils.h']]],
+  ['size_5ftab_2',['size_tab',['../buzzer_8h.html#ab3a77f45e908f9abd185948b0b523427',1,'size_tab:&#160;buzzer.cpp'],['../buzzer_8cpp.html#ab3a77f45e908f9abd185948b0b523427',1,'size_tab:&#160;buzzer.cpp']]],
+  ['stopped_3',['STOPPED',['../motor_8h.html#a27df4ec5a37300c4bd7adfdbd7347ff1a948b2aee15f52b421fa4770c47bcfe8c',1,'motor.h']]],
+  ['strip_5fled_2ecpp_4',['strip_led.cpp',['../strip__led_8cpp.html',1,'']]],
+  ['strip_5fled_2eh_5',['strip_led.h',['../strip__led_8h.html',1,'']]],
+  ['sw_6',['SW',['../joystick_8h.html#a4b95e941f44a20ea60512bbe2065f0b6',1,'joystick.h']]]
 ];
