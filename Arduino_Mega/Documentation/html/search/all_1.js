@@ -5,11 +5,10 @@ var searchData=
   ['bluetooth_2',['BLUETOOTH',['../joystick_8h.html#a52182ff5330f85ab8c2d24b65364a0d9acf9d75f7b1a34d02c9d810281f51cf2a',1,'joystick.h']]],
   ['bluetooth_2ecpp_3',['bluetooth.cpp',['../bluetooth_8cpp.html',1,'']]],
   ['bluetooth_2eh_4',['bluetooth.h',['../bluetooth_8h.html',1,'']]],
-  ['boards_5',['Boards',['../md__r_e_a_d_m_e.html#autotoc_md3',1,'']]],
-  ['bt_5fprocess_6',['BT_process',['../bluetooth_8h.html#a1a86cc04e441d7b839f2d3364fe9a488',1,'BT_process(int *scaled_X, int *scaled_Y):&#160;bluetooth.cpp'],['../bluetooth_8cpp.html#a1a86cc04e441d7b839f2d3364fe9a488',1,'BT_process(int *scaled_X, int *scaled_Y):&#160;bluetooth.cpp']]],
-  ['bt_5frate_7',['BT_RATE',['../bluetooth_8h.html#a08d9e73a2b518fb527c72647cf6a4c62',1,'bluetooth.h']]],
-  ['buzz_8',['buzz',['../buzzer_8h.html#a28b1eb955e6e2f5e83599536f6bf4d2f',1,'buzz():&#160;buzzer.cpp'],['../buzzer_8cpp.html#a28b1eb955e6e2f5e83599536f6bf4d2f',1,'buzz():&#160;buzzer.cpp']]],
-  ['buzzer_2ecpp_9',['buzzer.cpp',['../buzzer_8cpp.html',1,'']]],
-  ['buzzer_2eh_10',['buzzer.h',['../buzzer_8h.html',1,'']]],
-  ['buzzer_5fpin_11',['BUZZER_PIN',['../buzzer_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'buzzer.h']]]
+  ['bt_5fprocess_5',['BT_process',['../bluetooth_8h.html#a1a86cc04e441d7b839f2d3364fe9a488',1,'BT_process(int *scaled_X, int *scaled_Y):&#160;bluetooth.cpp'],['../bluetooth_8cpp.html#a1a86cc04e441d7b839f2d3364fe9a488',1,'BT_process(int *scaled_X, int *scaled_Y):&#160;bluetooth.cpp']]],
+  ['bt_5frate_6',['BT_RATE',['../bluetooth_8h.html#a08d9e73a2b518fb527c72647cf6a4c62',1,'bluetooth.h']]],
+  ['buzz_7',['buzz',['../buzzer_8h.html#a28b1eb955e6e2f5e83599536f6bf4d2f',1,'buzz():&#160;buzzer.cpp'],['../buzzer_8cpp.html#a28b1eb955e6e2f5e83599536f6bf4d2f',1,'buzz():&#160;buzzer.cpp']]],
+  ['buzzer_2ecpp_8',['buzzer.cpp',['../buzzer_8cpp.html',1,'']]],
+  ['buzzer_2eh_9',['buzzer.h',['../buzzer_8h.html',1,'']]],
+  ['buzzer_5fpin_10',['BUZZER_PIN',['../buzzer_8h.html#ab61d0981ed42df9e18211b273d22cfcd',1,'buzzer.h']]]
 ];

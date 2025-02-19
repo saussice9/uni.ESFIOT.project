@@ -25,15 +25,6 @@
 var NAVTREE =
 [
   [ "DiscoBot", "index.html", [
-    [ "DiscoBot", "md__r_e_a_d_m_e.html", [
-      [ "Project description", "md__r_e_a_d_m_e.html#autotoc_md1", null ],
-      [ "Project components", "md__r_e_a_d_m_e.html#autotoc_md2", [
-        [ "Boards", "md__r_e_a_d_m_e.html#autotoc_md3", null ],
-        [ "Power", "md__r_e_a_d_m_e.html#autotoc_md4", null ]
-      ] ],
-      [ "How to use it ?", "md__r_e_a_d_m_e.html#autotoc_md5", null ],
-      [ "About us", "md__r_e_a_d_m_e.html#autotoc_md6", null ]
-    ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
