@@ -26,14 +26,6 @@ void loop() {
     int JOYSTICK_X_state = analogRead(JOYSTICK_X);
     int JOYSTICK_Y_state = analogRead(JOYSTICK_Y);
 
-    // Write to serial monitor
-    Serial.write("*X");
-    Serial.print(JOYSTICK_X_state / 4);
-    Serial.write(",Y");
-    Serial.print(JOYSTICK_Y_state / 4);
-    Serial.write("_");
-
-
     // Bluetooth sent data 
     // Here, we need to swap X and Y because there are reversed in comparison with the axis used in the Arduino code for the joystick.
     // Also we divide by 4 because the values received from the joystick are on 10 bits (from 0 to 1023) and we need to have them on 8 bits (from 0 to 255) to
